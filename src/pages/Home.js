@@ -1,11 +1,6 @@
-import React from 'react';
-
+import React from "react";
 function Home() {
-    return (
-        <div>
-            <h1>로그인화면</h1>
-        </div>
-    );
+  return <div>home</div>;
 }
 
 export default Home;

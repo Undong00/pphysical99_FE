@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/Header";
 import Navi from "../components/Navi";
 import Home from "../pages/Home"
-import Register from "../pages/Register"
 import Join from "../pages/Join"
+import Quiz from "../pages/Quiz";
+import Register from "../pages/Register"
 import Test from "../pages/Test"
 
 const Router = () => {
@@ -14,8 +15,9 @@ const Router = () => {
             <Navi></Navi>
                 <Routes>
                     <Route path="/" element={<Home/>} />
-                    <Route path="/register" element={<Register/>}/>
                     <Route path="/join" element={<Join/>}/>
+                    <Route path="/quiz" element={<Quiz />} />
+                    <Route path="/register" element={<Register/>}/>
                     <Route path="/test" element={<Test/>}/>
                 </Routes>
         </BrowserRouter>
