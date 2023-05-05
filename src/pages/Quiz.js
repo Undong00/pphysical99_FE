@@ -1,7 +1,7 @@
 import React from "react";
-import Body from "../components/common/Body";
-import Title from "../components/common/Title";
-import Comment from "../components/common/Comment";
+import Body from "../components/Body";
+import Title from "../components/Title";
+import Comment from "../components/Comment";
 function Quiz() {
   return (
     <div>
