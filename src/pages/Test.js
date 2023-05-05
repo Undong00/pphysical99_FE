@@ -1,6 +1,9 @@
-// import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { isEdit } from "../redux/modules/componentMode";
+
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { isEdit } from '../redux/modules/componentMode';
+import Answer from '../components/Answer';
+
 
 // function Test() {
 //   //전역 스토어에서 현재 게시글이 수정상태인지 여부를 가져온다.
@@ -15,7 +18,16 @@
 //   // true, false를 명시적으로 넘겨줌. 수정모드 하고시으면 이걸 트루로 버튼에서 바꿔준다.
 //   dispatcher(isEdit(false));
 
-//   return <div>TEST</div>;
-// }
+
+    return (
+        <div>
+            TEST
+            <Answer>
+
+                
+            </Answer>
+        </div>
+    );
+}
 
 // export default Test;

@@ -2,11 +2,8 @@ import React from "react";
 // 로그인
 
 function Home() {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
+  return <h1>홈. 로그인화면</h1>;
+
 }
 
 export default Home;
