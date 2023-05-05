@@ -1,20 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-
+// 네비
 function Navi() {
-  const location = useLocation();
-
-  return (
-    <>
-      {
-      (location.pathname === '/join' || location.pathname === '/') ? <></> :
-        <div>
-          {location.pathname === '/register' ? <></> : <button>등록하기</button>}
-          <button>로그아웃</button>
-        </div>
-      }
-    </>
-  );
+  return <div>네비</div>;
 }
 
 export default Navi;

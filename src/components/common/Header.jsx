@@ -1,19 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-
+// 헤더
 function Header() {
-  const location = useLocation();
-
-  return (
-    <>
-      {
-        (location.pathname === '/join' || location.pathname === '/') ? <></> :
-          <div>
-            <div>PPhysical99</div>
-          </div>
-      }
-    </>
-  )
+  return <div>헤더</div>;
 }
 
 export default Header;

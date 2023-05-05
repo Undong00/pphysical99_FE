@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+// 내용
 function Body() {
   const [body, setBody] = useState("");
   const Bodychange = (e) => {
@@ -8,7 +8,12 @@ function Body() {
   };
   return (
     <div>
-      <textarea type="text" value={body} onChange={Bodychange} />
+      <textarea
+        placeholder="내용을 입력하세요 "
+        type="text"
+        value={body}
+        onChange={Bodychange}
+      />
     </div>
   );
 }
