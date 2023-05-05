@@ -1,6 +1,6 @@
 import React from "react";
 function Home() {
-  return <div>home</div>;
+  return <h1>홈. 로그인화면</h1>;
 }
 
 export default Home;

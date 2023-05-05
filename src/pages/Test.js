@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEdit } from '../redux/modules/componentMode';
+import Answer from '../components/Answer';
 
 function Test() {
     
@@ -19,6 +20,10 @@ function Test() {
     return (
         <div>
             TEST
+            <Answer>
+
+                
+            </Answer>
         </div>
     );
 }
