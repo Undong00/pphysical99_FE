@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Home() {
+function Join() {
     return (
         <div>
-            <h1>로그인화면</h1>
+            <h1>JOIN입니다.</h1>
         </div>
     );
 }
 
-export default Home;
+export default Join;

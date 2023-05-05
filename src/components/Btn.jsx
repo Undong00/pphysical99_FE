@@ -1,7 +1,13 @@
 import React from "react";
 
-function Btn() {
-  return <div>버튼</div>;
+function Btn(props) {
+return (
+    <>
+        {
+            props.type === 'primary' ? <button onClick={props.onClick}>{props.children}</button> : <button onClick={props.onClick}>{props.children}</button>
+        }
+    </>
+);
 }
 
 export default Btn;
