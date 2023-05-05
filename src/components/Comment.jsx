@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// 댓글
+// 댓글 추가, 댓글 삭제
 function Comment() {
   const [users, setUser] = useState([
     {
@@ -23,19 +23,32 @@ function Comment() {
     setUser([...users, newComment]);
     setComment("");
   };
+  //삭제 버튼
+  const deleteComment = (id) => {
+    const delComment = users.filter((comment) => comment.id !== id);
+    setUser(delComment);
+  };
 
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input type="text" value={comment} onChange={handleInputChange} />
-        <button onClick={addcommnet}>Add Comment</button>
+        <input
+          placeholder="댓글을 입력해주세요"
+          type="text"
+          value={comment}
+          onChange={handleInputChange}
+        />
+        <button onClick={() => addcommnet()}>댓글 추가</button>
       </form>
 
-      <ul>
+      <div>
         {users.map((user) => (
-          <li key={user.id}>{user.comment}</li>
+          <div key={user.id}>
+            {user.comment}
+            <button onClick={() => deleteComment(user.id)}>삭제하기</button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
