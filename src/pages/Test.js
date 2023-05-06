@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEdit } from '../redux/modules/componentMode';
 import Answer from '../components/Answer';
+import styled from "styled-components";
 
 
 // function Test() {
@@ -20,14 +21,18 @@ import Answer from '../components/Answer';
 
 
     return (
-        <div>
+        <Main>
             TEST
             <Answer>
-
-                
             </Answer>
-        </div>
+        </Main>
     );
 }
 
-// export default Test;
+export const Main = styled.main`
+    padding-top: 160px;
+    min-height: calc(100vh - 160px); // 헤더와 네비 높이만큼 제외
+    background-color: #f1f3f5;
+`
+
+export default Test;

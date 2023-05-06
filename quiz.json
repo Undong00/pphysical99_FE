@@ -8,10 +8,7 @@
             "userId": "언동덩",
             "quizTitle": "저의 대학교 전공은 무엇일까요?",
             "quizContent": "저의 대학교 전공을 맞춰 보세요!!!! 힌트는 !!! 0과1",
-            "correct": "컴퓨터공학과",
-            "incorrect1": "성악과",
-            "incorrect2": "화학공학과",
-            "incorrect3": "사학과",
+            "answerList":["컴퓨터공학과", "성악과","화공","사학과"],
             "commentList":[
                 {
                     "id":1,

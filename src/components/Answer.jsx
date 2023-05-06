@@ -11,30 +11,40 @@ function Answer(props) {
     // 리액트 쿼리 관련
     const queryClient = useQueryClient();
     const { isLoading, isError, data } = useQuery("quizQuiz", ()=>(quizQuiz(1)))
-    let answerArr = []
-    // useEffect(()=>{
-    //     if(data){
-    //         console.log("useEffec ", data.data.data.correct)
-    //         console.log("useEffec ", data.data.data.incorrect1)
-    //         console.log("useEffec ", data.data.data.incorrect2)
-    //         console.log("useEffec ", data.data.data.incorrect3)
-    //         answerArr.push(data.data.data.correct)
-    //         answerArr.push(data.data.data.incorrect1)
-    //         answerArr.push(data.data.data.incorrect2)
-    //         answerArr.push(data.data.data.incorrect3)
-    //     }
-    // },[data])
+    
+    // 내부상태
+    const [answerArr, setAnswerArr] = useState()
+    const [answer, setAnswer] = useState('')
+    useEffect(()=>{
+        if(data){
+            setAnswerArr(data.data.data.answerList)
+        }
+    },[data])
+    
 
-    // data의 data를 프롭스로 넘겨받았다고 가정
-    // console.log(">>>>>>>정답",data.data)
-    // console.log(">>>>>>>오답",data.data.incorrect1)
-    // console.log(">>>>>>>오답",data.data.incorrect2)
-    // console.log(">>>>>>>오답",data.data.incorrect3)
+    const onChangeEventHandler = (e) => {
+        setAnswer(e.target.value)
+        console.log("제출한 정답은 "+answer+" 입니다.")
+    }
 
-    console.log("!!!",answerArr.length)
+    // div 클릭 이벤트
+    const onClickEventHandler = (e) => {
+        const chooseAnswer = e.target.innerText
+        submitAnswer(chooseAnswer)
+    }
+
+    const submitAnswer = (finalAnswer) =>{
+        console.log("정답을 제출합니다.")
+        console.log("최종 제출 답안 : "+finalAnswer)
+        setAnswer('')
+    }
+    
+
     return (
         <>
-        {answerArr.length>1?answerArr.map((answer)=>(<div>{answer}</div>)):<><input></input><button>제출</button></>}
+        <div className='answerContainer' style={{ display : 'flex', flexDirection : 'row', gap: '10px'}}>
+        {(answerArr&&answerArr.length>1)?answerArr.map((answer)=>{ return <div onClick={onClickEventHandler} style={{flex: 1,background:'green', height : `calc(100vh - 90vh)`}}>{answer}</div>}):<><input onChange={onChangeEventHandler} type="text" value={answer}></input><button onClick={()=>(submitAnswer(answer))}>제출</button></>}
+        </div>
         </>
 
     );
