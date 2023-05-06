@@ -4,6 +4,9 @@ import Title from "../components/Title";
 import Comment from "../components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { isEdit } from "../redux/modules/componentMode";
+import Answer from "../components/Answer";
+import * as CSS from "../style/commonStyle";
+
 // 수정 시 버튼 바꾸기,
 function Quiz() {
   // 액션객체를 시행하기 위핸 디스패쳐를 선언한다.
@@ -16,13 +19,14 @@ function Quiz() {
     dispatch(isEdit(!isEditMode));
   };
   return (
-    <div>
+    <CSS.Main>
       <Title />
       <button>삭제하기</button>
       <button onClick={handleButtonClick}>{isEditMode ? "✍️" : "✅"}</button>
       <Body />
+      <Answer isEdit={isEditMode} />
       <Comment />
-    </div>
+    </CSS.Main>
   );
 }
 
