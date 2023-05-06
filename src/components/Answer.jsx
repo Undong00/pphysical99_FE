@@ -42,9 +42,13 @@ function Answer(props) {
 
     return (
         <>
+        {
+        props.isEdit?<div>수정모드라서 답안들 css visible false 로 처리해서 자리만 차지하게 한다.</div>:
         <div className='answerContainer' style={{ display : 'flex', flexDirection : 'row', gap: '10px'}}>
         {(answerArr&&answerArr.length>1)?answerArr.map((answer)=>{ return <div onClick={onClickEventHandler} style={{flex: 1,background:'green', height : `calc(100vh - 90vh)`}}>{answer}</div>}):<><input onChange={onChangeEventHandler} type="text" value={answer}></input><button onClick={()=>(submitAnswer(answer))}>제출</button></>}
         </div>
+        }
+        
         </>
 
     );
