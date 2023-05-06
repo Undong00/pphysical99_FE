@@ -1,4 +1,16 @@
 import api from "./apiConfig"
+import {testInstance} from "./apiConfig" // 테스트를 위한 목 서버
+
+
+/**
+ * 목록조회
+ * @param  
+ * @returns response
+ */
+export const quizList = async () => {
+    const  response  = await testInstance.get(`/quiz`)  // TODO 백앤드에서 지정한 url로 변경
+        return response
+}
 
 /**
  * 퀴즈 조회
