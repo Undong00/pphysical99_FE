@@ -6,6 +6,11 @@ const instance = axios.create({
     baseURL : "http://localhost:4000/"
 })
 
+// 테스트를 위한 목 인스턴스
+const testInstance = axios.create({
+    baseURL : "https://0a98f1f5-0d64-4224-be67-8457351a3d32.mock.pstmn.io/"
+})
+
 /* 요청 */
 instance.interceptors.request.use(
     function(config){
@@ -27,3 +32,4 @@ instance.interceptors.response.use(
 )
 
 export default instance
+export {testInstance}

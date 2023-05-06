@@ -1,63 +1,91 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { signUpUser } from "../api/user";
-import { useMutation } from "react-query";
-
+import axios from "axios";
+import { useInput } from "../Hooks/UseTarget";
+import { useRef } from "react";
 // 회원가입
 
 function Join() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
+  const [userId, setUserId] = useInput("");
+  const [password, setPassword] = useInput("");
+  const [pwcheck, setPwcheck] = useInput("");
+  const trimUserId = userId.trim();
+  const trimPassword = password.trim();
+  const trimPwcheck = pwcheck.trim();
+  const userIdRef = useRef(null);
+  const passwordRef = useRef(null);
+  const pwcheckRef = useRef(null);
 
-  const userIdhandleChange = (e) => {
-    setUserId(e.target.value);
-  };
-  const passwordhandleChange = (e) => {
-    setPassword(e.target.value);
-  };
-  // 리액트 쿼리
-  const { mutate } = useMutation(signUpUser, {
-    onSuccess: () => {
-      navigate("/");
-    },
-    onError: (error) => {
-      alert(error);
-    },
-  });
+  //   const userIdhandleChange = (e) => {
+  //     setUserId(e.target.value);
+  //   };
+  //   const passwordhandleChange = (e) => {
+  //     setPassword(e.target.value);
+  //   };
 
-  const handleSubmit = async () => {
+  //   const pwcheckhandleChange = (e) => {
+  //     setPwcheck(e.target.value);
+  //   };
+
+  // 아이디 중복 검사
+
+  // 리액트 쿼리 바꿔야함
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     // 유효성 검사
-    if (!userId) {
+    if (!trimUserId) {
       alert("아이디를 입력해주세요");
+      userIdRef.current.focus();
       return;
     }
-    if (!password) {
+    if (!trimPassword) {
       alert("비밀번호를 입력해주세요");
+      passwordRef.current.focus();
       return;
     }
-    if (password.includes(userId)) {
+    if (trimPassword.includes(trimUserId)) {
       alert("비밀번호에 아이디를 포함할 수 없습니다.");
+      passwordRef.current.focus();
       return;
     }
 
-    if (userId.length > 10) {
+    if (trimUserId.length > 10) {
       alert("아이디는 10자 이상이어야 합니다.");
+      userIdRef.current.focus();
       return;
     }
 
-    if (password.length < 6) {
+    if (trimUserId.length < 6) {
       alert("비밀번호는 6자 이상이어야 합니다.");
+      passwordRef.current.focus();
       return;
     }
-    if (userId.length === 0 && password.length === 0) {
+    if (trimUserId.length === 0 && trimPassword.length === 0) {
       alert("아이디와 비밀번호를 입력해주세요");
+      userIdRef.current.focus();
+      return;
+    }
+    if (trimPassword !== trimPwcheck) {
+      alert("비밀번호가 일치하지 않습니다.");
+      pwcheckRef.current.focus();
       return;
     }
 
-    mutate({ userId, password });
+    try {
+      const response = await axios.post("http://3.38.191.164/register", {
+        // 바꿔임마
+        id: userId,
+        password,
+      });
+      alert("회원가입이 되었습니다.");
+      navigate("/");
+      console.log(response);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
+
   return (
     <div>
       <div>
@@ -70,7 +98,8 @@ function Join() {
             type="text"
             placeholder="중복 체크해주세요"
             value={userId}
-            onChange={userIdhandleChange}
+            onChange={setUserId}
+            ref={userIdRef}
           />
           <span>
             <button>확인</button>
@@ -81,16 +110,23 @@ function Join() {
             type="text"
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={passwordhandleChange}
+            onChange={setPassword}
+            ref={passwordRef}
           />
         </div>
         <div>
-          <input type="text" placeholder="비밀번호를 체크해주세요" />
+          <input
+            type="text"
+            placeholder="비밀번호를 체크해주세요"
+            value={pwcheck}
+            onChange={setPwcheck}
+            ref={pwcheckRef}
+          />
         </div>
       </div>
       <div>
         {/* 긍정  */}
-        <button onClick={() => handleSubmit}>등록하기</button>
+        <button onClick={handleSubmit}>등록하기</button>
       </div>
     </div>
   );
