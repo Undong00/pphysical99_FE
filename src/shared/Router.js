@@ -7,6 +7,7 @@ import Join from "../pages/Join";
 import Quiz from "../pages/Quiz";
 import Register from "../pages/Register";
 import Test from "../pages/Test";
+import List from "../pages/List";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/List" element={<List />} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
