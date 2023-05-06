@@ -1,28 +1,36 @@
-// import React from "react";
-// // 등록하기
+import React, {useState, useEffect} from "react";
+import Title from "../components/Title";
+import Body from "../components/Body";
+import QuizRegister from "../components/QuizRegister";
+import * as CSS from "../style/commonStyle";
 
-// const [users, setUsers] = useState([
-//   {
-//     id: 1,
-//     title: title,
-//     body: body,
-//   },
-// ]);
-// // 퀴즈 등록
-// const addQuiz = () => {
-//   const newQuiz = {
-//     id: users.length + 1,
-//     quiz: "",
-//   };
-//   setUsers([...users, newQuiz]);
-// };
+function Register() {
+    // 서버에 담을 값들
+    const [questionObj, setQuestionObj] = useState({
+        title: '',
+        content: '',
+        correct: '',
+        incorrect1: null,
+        incorrect2: null,
+        incorrect3: null
+    })
 
-// function Register() {
-//   return (
-//     <div>
-//       <h1>레지스터입니다.</h1>
-//     </div>
-//   );
-// }
+    const getQuestinObj = (x) => {
+        const resolve = {x}
+        setQuestionObj({...questionObj,...resolve.x})
+    }
 
-// export default Register;
+    useEffect(()=>{
+        console.log(questionObj)
+    },[questionObj])
+
+    return (
+    <CSS.Main>
+        <Title getQuestinObj={getQuestinObj}/>
+        <Body getQuestinObj={getQuestinObj}/>
+        <QuizRegister getQuestinObj={getQuestinObj} questionObj={questionObj}/>
+    </CSS.Main>
+    );
+}
+
+export default Register;
