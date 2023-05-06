@@ -85,7 +85,7 @@ function Join() {
           />
         </div>
         <div>
-          <input type="text" placeholder="비밀번호를 체크해주세요" />
+          {/* <input type="text" placeholder="비밀번호를 체크해주세요" /> */}
         </div>
       </div>
       <div>
