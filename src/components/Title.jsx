@@ -18,7 +18,6 @@ function Title(props) {
   useEffect(() => {
     if (props.data) {
       setTitle(props.data.data.data.quizTitle);
-      console.log(props.data.data.data.quizTitle);
     }
   }, [props.data]);
 

@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useQuery, useQueryClient } from "react-query"; // 서버요청 및 미들웨어
-import { quizList } from "../api/quiz";
+import React from "react";
+import { getCookie, setCookie, removeCookie } from "../cookie/Cookie"
 import * as CSS from "../style/commonStyle";
 
 function Test() {
-  // 리액트 쿼리 관련
-  const queryClient = useQueryClient();
-  const { isLoading, isError, data } = useQuery("quizList", () => quizList());
-
-  // 데이터를 받아올 내부 상태 선언
-  const [quizs, setQuizs] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      setQuizs(data);
-    }
-  }, [data]);
-
+//쿠키테스트
+  const testSetCk = () =>{
+    setCookie('test', '벨류벨류')
+  }
+  const testGetCk = () =>{
+    console.log(getCookie('test'))
+  }
+  const testRmCk = () => {
+    removeCookie('test')
+  }
   return (
     <CSS.Main>
       <h1>TEST</h1>
-      <div>{!data && quizs.data}</div>
+      <button onClick={testSetCk} >setCookie</button>
+      <button onClick={testGetCk} >getCookie</button>
+      <button onClick={testRmCk} >removeCookie</button>
     </CSS.Main>
   );
 }

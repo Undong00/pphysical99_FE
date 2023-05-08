@@ -1,44 +1,51 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useMutation} from "react-query";
+import { addComment, deleteComment } from "../api/comment";
 
-function CommentList() {
+function CommentList(props) {
   const [commentList, setCommentList] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [postId, setPostId] = useState('')
+  
+  useEffect(() => {
+    if (props.data) {
+      setPostId(props.data.data.data.id);
+      setCommentList([...props.data.data.data.commentList]);
+    }
+  }, [props.data]);
 
   const handleNewComment = (e) => {
     setNewComment(e.target.value);
   };
 
-  const addComment = async () => {
-    const response = await axios.post("http://localhost:4000/commentList", {
-      comment: newComment,
-    });
-    console.log(response);
-    setNewComment("");
-    window.location.reload();
-  };
+  const addCommentMutate = useMutation(addComment,{
+    onSuccess: () => {
+      //TODO 댓글 새로 조회 추가 window.location.reload();
+      setNewComment("");
+    },
+    onError: ()  => {
+      console.log("에러발생함")
+    }
+  })
 
-  const deleteComment = async (id) => {
-    const response = await axios.delete(
-      `http://localhost:4000/commentList/${id}`
-    );
-    console.log(response);
-    setCommentList(commentList.filter((comment) => comment.id !== id));
-    window.location.reload();
-  };
+  const addCommentMutateCall = ()=>{
+    console.log(":::: /comment/quizId 댓글 등록 최종전달값,",{postId:postId, comment:newComment})
+    addCommentMutate.mutate({postId:postId, comment:newComment}) 
+  }
+  
+  const deleteCommentMutate = useMutation(deleteComment,{
+    onSuccess:()=>{
+      //TODO 댓글 목록 새로 조회 추가 window.location.reload();
+    },
+    onError:()=>{
+      console.log("댓글 삭제중 에러 발생함")
+    }
+  })
 
-  useEffect(() => {
-    const getCommentList = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/commentList");
-        console.log(response.data);
-        setCommentList(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCommentList();
-  }, []);
+  const deleteCommentMutateCall = (id)=>{
+    console.log(":::: /comment/commentId 댓글 삭제 최종전달값,",id)
+    deleteCommentMutate.mutate(id)
+  }
 
   return (
     <div>
@@ -49,14 +56,14 @@ function CommentList() {
           value={newComment}
           onChange={handleNewComment}
         />
-        <button onClick={() => addComment()}>댓글 추가</button>
+        <button onClick={() => addCommentMutateCall()}>댓글 추가</button>
       </form>
 
       <div>
         {commentList.map((comment) => (
           <div key={comment.id}>
             {comment.comment}
-            <button onClick={() => deleteComment(comment.id)}>삭제하기</button>
+            <button onClick={() => deleteCommentMutateCall(comment.id)}>삭제하기</button>
           </div>
         ))}
       </div>
