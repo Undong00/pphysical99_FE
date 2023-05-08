@@ -69,7 +69,7 @@ function Join() {
     }
 
     if (trimUserId.length > 10) {
-      alert("아이디는 10자 이상이어야 합니다.");
+      alert("아이디는 10자 이하이어야 합니다.");
       userIdRef.current.focus();
       return;
     }
@@ -125,7 +125,7 @@ function Join() {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             placeholder="비밀번호를 입력해주세요"
             value={password}
             onChange={setPassword}
@@ -134,7 +134,7 @@ function Join() {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             placeholder="비밀번호를 체크해주세요"
             value={pwcheck}
             onChange={setPwcheck}

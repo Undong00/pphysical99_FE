@@ -52,6 +52,7 @@ function Home() {
         password,
       });
       // alert("로그인 되었습니다.");
+      console.log(trimUserId);
 
       navigate("/List");
       setCookie("userId", trimUserId, {

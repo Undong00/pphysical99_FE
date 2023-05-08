@@ -15,9 +15,16 @@ function Title(props) {
     setTitle(e.target.value);
   };
 
+  useEffect(() => {
+    if (props.data) {
+      setTitle(props.data.data.data.quizTitle);
+      console.log(props.data.data.data.quizTitle);
+    }
+  }, [props.data]);
+
   return (
     <div>
-      {!props.isEditMode ? (
+      {!props.isEdit ? (
         <div>{title}</div>
       ) : (
         <input
