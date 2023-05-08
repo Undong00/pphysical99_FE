@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useInput } from "../Hooks/UseTarget";
 import { useMutation } from 'react-query';
 import { useRef } from "react";
+<<<<<<< HEAD
+import Swal from "sweetalert2";
+=======
 import { validId, signUp } from "../api/user";
+>>>>>>> origin
 // 회원가입
 function Join() {
   const navigate = useNavigate();
@@ -75,7 +79,15 @@ function Join() {
     event.preventDefault();
     // 유효성 검사
     if (!trimUserId) {
-      alert("아이디를 입력해주세요");
+      Swal.fire({
+        imageUrl: "https://unsplash.it/400/200",
+        icon: "error",
+        title: "Oops...",
+        text: "아이디를 입력해주세요",
+        confirmButtonColor: "black", // 버튼 색상
+        confirmButtonText: "확인",
+        allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
+      });
       userIdRef.current.focus();
       return;
     }
