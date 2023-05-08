@@ -20,10 +20,10 @@ function Quiz() {
   };
   return (
     <CSS.Main>
-      {/* <Title /> */}
+      <Title />
       <button>삭제하기</button>
       <button onClick={handleButtonClick}>{isEditMode ? "✍️" : "✅"}</button>
-      {/* <Body /> */}
+      <Body />
       <Answer isEdit={isEditMode} />
       <Comment />
     </CSS.Main>

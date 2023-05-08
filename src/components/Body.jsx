@@ -9,7 +9,9 @@ function Body(props) {
   
   /** 부모컴포넌트의 스테이트 변경을 위한 useEffect */
   useEffect(()=>{
-    props.getQuestinObj({content:body})
+    if(props.getQuestinObj){
+      props.getQuestinObj({content:body})
+    }
   },[body])
   
   return (
