@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 
 function QuizRegister(props) {
+
+    const correctInput = useRef();
 
     const [answerObj, setAnswerObj] = useState({
         correct:null,
@@ -36,6 +38,7 @@ function QuizRegister(props) {
         console.log("유효성체크")
         if(!answerObj.correct || !answerObj.correct.trim()){ // null.undeifined..  || ''
             alert("정답 선택지는 필수입니다.")
+            correctInput.current.focus(); 
             setAnswerObj({...answerObj, ...{correct:''}})
         }else{
             console.log("서버에 보낼 최종값. 부모컴포넌트로 부터 받음 : ", props.questionObj)
@@ -46,7 +49,7 @@ function QuizRegister(props) {
 
     return (
         <div>
-            <div><input id="correct" type="text" value={answerObj.correct}       onChange={answersOnChangeEventHandler} placeholder='정답 선택지를 입력해주세요.'/></div>
+            <div><input ref={correctInput} id="correct" type="text" value={answerObj.correct}       onChange={answersOnChangeEventHandler} placeholder='정답 선택지를 입력해주세요.'/></div>
             <div><input id="incorrect1" type="text" value={answerObj.incorrect1} onChange={answersOnChangeEventHandler} placeholder='다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다.'/></div>
             <div><input id="incorrect2" type="text" value={answerObj.incorrect2} onChange={answersOnChangeEventHandler} placeholder='다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다.'/></div>
             <div><input id="incorrect3" type="text" value={answerObj.incorrect3} onChange={answersOnChangeEventHandler} placeholder='다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다.'/></div>

@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query"; // 서버�
 import { useParams } from 'react-router-dom'; // 패치의 파람
 import { useDispatch } from 'react-redux'; //리듀서 실행
 import { quizQuiz } from '../api/quiz';
+import { useRef } from "react";
 
 function Answer(props) {
     /* TODO 
@@ -19,12 +20,14 @@ function Answer(props) {
     // 내부상태
     const [answerArr, setAnswerArr] = useState()
     const [answer, setAnswer] = useState('')
+
     useEffect(()=>{
         if(data){
             setAnswerArr(data.data.data.answerList)
         }
     },[data])
     
+    const answerInput = useRef();
 
     const onChangeEventHandler = (e) => {
         setAnswer(e.target.value)
@@ -40,8 +43,15 @@ function Answer(props) {
     const submitAnswer = (finalAnswer) =>{
         console.log("정답을 제출합니다.")
         console.log("최종 제출 답안 : "+finalAnswer)
-        // TODO dispather로 나중에 답안등록 api 통신 처리해야함
-        setAnswer('')
+        if(finalAnswer.trim().length === 0){
+            alert("정답을 입력해주세요.")
+            answerInput.current.focus();    
+            return
+        }else{
+             // TODO dispather로 나중에 답안등록 api 통신 처리해야함
+            alert("정답을 제출합니다. 과연 맞출수 있을까요?!")
+            setAnswer('')
+        }
     }
     
 
@@ -50,7 +60,7 @@ function Answer(props) {
         {
             // TODO '수정중 게시글' div css 처리
             (props.isEdit)?<div>수정중 게시글</div>:<div className='answerContainer' style={{ display : 'flex', flexDirection : 'row', gap: '10px'}}>
-            {(answerArr&&answerArr.length>1)?answerArr.map((answer)=>{ return <div onClick={onClickEventHandler} style={{flex: 1,background:'green', height : `calc(100vh - 90vh)`}}>{answer}</div>}):<><input onChange={onChangeEventHandler} type="text" value={answer}></input><button onClick={()=>(submitAnswer(answer))}>제출</button></>}
+            {(answerArr&&answerArr.length>1)?answerArr.map((answer)=>{ return <div onClick={onClickEventHandler} style={{flex: 1,background:'green', height : `calc(100vh - 90vh)`}}>{answer}</div>}):<><input ref={answerInput} onChange={onChangeEventHandler} type="text" value={answer}></input><button onClick={()=>(submitAnswer(answer))}>제출</button></>}
             </div>
         }
         </>
