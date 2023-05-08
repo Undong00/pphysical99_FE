@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../Hooks/UseTarget";
-import { useMutation } from 'react-query';
+import { useMutation } from "react-query";
 import { useRef } from "react";
-<<<<<<< HEAD
 import Swal from "sweetalert2";
-=======
 import { validId, signUp } from "../api/user";
->>>>>>> origin
 // 회원가입
 function Join() {
   const navigate = useNavigate();
@@ -27,31 +24,31 @@ function Join() {
   const pwcheckRef = useRef(null);
 
   // 아이디 중복여부를 담는 내부 스테이트
-  const [valiedId, setValiedId] = useState(false)
-  
+  const [valiedId, setValiedId] = useState(false); // 체크하고 다시
+
   // 아이디 중복체크 선언
   const validIdMutate = useMutation(validId, {
     onSuccess: (response) => {
-        setValiedId(true)
-        alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`)
-        navigate('/')
+      setValiedId(true);
+      alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`);
+      navigate("/");
     },
-    onError : (error) => {
-        setValiedId(false)
-        alert("이미 존재하는 아이디입니다.");
-        userIdRef.current.focus();
-    }
-  })
+    onError: (error) => {
+      setValiedId(false);
+      alert("이미 존재하는 아이디입니다.");
+      userIdRef.current.focus();
+    },
+  });
 
   // 아이디 중복체크 함수
   const validIdMutateCall = () => {
-    console.log(":::: signup/valid/ 최종전달값,", {id:trimUserId})
-    validIdMutate.mutate({id: trimUserId})
-  }
+    console.log(":::: signup/valid/ 최종전달값,", { id: trimUserId });
+    validIdMutate.mutate({ id: trimUserId });
+  };
 
   const checkUserId = () => {
     try {
-      validIdMutateCall()
+      validIdMutateCall();
     } catch (err) {
       console.log(err);
     }
@@ -60,19 +57,19 @@ function Join() {
   // 회원가입 요청 선언
   const signUpMutate = useMutation(signUp, {
     onSuccess: (response) => {
-        alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`)
-        navigate('/')
+      alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`);
+      navigate("/");
     },
-    onError : (error) => {
-        alert(error + '\n회원가입이 실패했습니다.')
-    }
-  })
+    onError: (error) => {
+      alert(error + "\n회원가입이 실패했습니다.");
+    },
+  });
 
   // 회원가입 요청
   const signUpMutateCall = () => {
-    console.log(":::: signup/ 최종전달값,", {id:trimUserId, password})
-    signUpMutate.mutate({id: trimUserId, password})
-  }
+    console.log(":::: signup/ 최종전달값,", { id: trimUserId, password });
+    signUpMutate.mutate({ id: trimUserId, password });
+  };
 
   // 리액트 쿼리 바꿔야함
   const handleSubmit = (event) => {
@@ -123,13 +120,13 @@ function Join() {
       pwcheckRef.current.focus();
       return;
     }
-    if(!valiedId){
+    if (!valiedId) {
       alert("아이디 중복체크는 필수입니다.");
       return;
     }
 
     try {
-      signUpMutateCall()
+      signUpMutateCall();
     } catch (error) {
       alert(error.response.data.message);
     }
