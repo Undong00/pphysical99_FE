@@ -20,7 +20,11 @@ const Router = () => {
         <Route path="/quiz/:id" element={<Quiz />} />
         <Route path="/register" element={<Register />} />
         <Route path="/list" element={<List />} />
+<<<<<<< HEAD
         <Route path="/test" element={<Test />} />
+=======
+        <Route path="/test" element={<Test />}></Route>
+>>>>>>> origin
       </Routes>
     </BrowserRouter>
   );

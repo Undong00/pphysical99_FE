@@ -1,15 +1,20 @@
 // axios 요청이 들어가는 모든 모듈
 import axios from "axios"
+import { getCookie } from "../cookie/Cookie"
 
-// 데이터 CRUD 인스턴스
 const instance = axios.create({
     baseURL : "http://localhost:4000/"
 })
 
-// 테스트를 위한 목 인스턴스
-const testInstance = axios.create({
-    baseURL : "https://0a98f1f5-0d64-4224-be67-8457351a3d32.mock.pstmn.io/"
+// 토큰정보 가진채로 사용해야하는 요청은 모두 이 인스턴스를 사용한다.
+const jwtInstance = axios.create({
+    baseURL : "http://localhost:4000/",
+    headers: {
+        'Content-Type': "application/json",
+        'Authorization': getCookie("jwt"),
+    }
 })
+
 
 /* 요청 */
 instance.interceptors.request.use(
@@ -31,5 +36,5 @@ instance.interceptors.response.use(
     },
 )
 
+export { jwtInstance }
 export default instance
-export {testInstance}
