@@ -6,22 +6,26 @@ function Body(props) {
   const Bodychange = (e) => {
     setBody(e.target.value);
   };
-  
+
   /** 부모컴포넌트의 스테이트 변경을 위한 useEffect */
-  useEffect(()=>{
-    if(props.getQuestinObj){
-      props.getQuestinObj({content:body})
+  useEffect(() => {
+    if (props.getQuestinObj) {
+      props.getQuestinObj({ content: body });
     }
-  },[body])
-  
+  }, [body]);
+
   return (
     <div>
-      <textarea
-        placeholder="내용을 입력하세요."
-        type="text"
-        value={body}
-        onChange={Bodychange}
-      />
+      {!props.isEditMode ? (
+        <div>{body}</div>
+      ) : (
+        <textarea
+          placeholder="내용을 입력하세요."
+          type="text"
+          value={body}
+          onChange={Bodychange}
+        />
+      )}
     </div>
   );
 }

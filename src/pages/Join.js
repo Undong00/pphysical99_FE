@@ -30,6 +30,24 @@ function Join() {
 
   // 아이디 중복 검사
 
+  const checkUserId = async () => {
+    try {
+      const res = await axios.get("/api/user/check", {
+        params: {
+          userId: trimUserId,
+        },
+      });
+      console.log(res.data);
+      if (res.data.length > 0) {
+        alert("이미 존재하는 아이디입니다.");
+        userIdRef.current.focus();
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // 리액트 쿼리 바꿔야함
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,7 +74,7 @@ function Join() {
       return;
     }
 
-    if (trimUserId.length < 6) {
+    if (trimPassword.length < 6) {
       alert("비밀번호는 6자 이상이어야 합니다.");
       passwordRef.current.focus();
       return;
@@ -102,7 +120,7 @@ function Join() {
             ref={userIdRef}
           />
           <span>
-            <button>확인</button>
+            <button onClick={checkUserId}>확인</button>
           </span>
         </div>
         <div>
