@@ -58,8 +58,8 @@ function Answer(props) {
   })
 
   const quizSolvingMutateCall = (finalAnswer) => {
-    console.log(":::: 퀴즈 답안제출 최종 전달값, ",{quizId:params.id, current:finalAnswer})
-    quizSolvingMutate.mutate({quizId:params.id, current:finalAnswer})
+    console.log(":::: 퀴즈 답안제출 최종 전달값, ",{quizId:params.id, correct:finalAnswer})
+    quizSolvingMutate.mutate({quizId:params.id, correct:finalAnswer})
   }
 
   return (

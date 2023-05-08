@@ -48,7 +48,7 @@ export const quizDelete = async (quizId) => {
  * @returns response
  */
 export const quizSolving = async (value) => {
-  const response = await jwtInstance.post(`/quiz/`+value.quizId+'/solving', value.current); 
+  const response = await jwtInstance.post(`/quiz/`+value.quizId+'/solving', value.correct); 
   return response;
 };
 
