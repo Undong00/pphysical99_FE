@@ -1,33 +1,44 @@
-import React, { useState } from "react";
-// 댓글 추가, 댓글 삭제
-function Comment() {
-  const [users, setUser] = useState([
-    {
-      id: 1,
-      comment: "This is a comment",
-    },
-  ]);
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-  const [comment, setComment] = useState("");
+function CommentList() {
+  const [commentList, setCommentList] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
-  const handleInputChange = (e) => {
-    setComment(e.target.value);
+  const handleNewComment = (e) => {
+    setNewComment(e.target.value);
   };
 
-  const addcommnet = () => {
-    // 추가 버튼
-    const newComment = {
-      id: users.length + 1,
-      comment: comment,
+  const addComment = async () => {
+    const response = await axios.post("http://localhost:4000/commentList", {
+      comment: newComment,
+    });
+    console.log(response);
+    setNewComment("");
+    window.location.reload();
+  };
+
+  const deleteComment = async (id) => {
+    const response = await axios.delete(
+      `http://localhost:4000/commentList/${id}`
+    );
+    console.log(response);
+    setCommentList(commentList.filter((comment) => comment.id !== id));
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const getCommentList = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/commentList");
+        console.log(response.data);
+        setCommentList(response.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    setUser([...users, newComment]);
-    setComment("");
-  };
-  //삭제 버튼
-  const deleteComment = (id) => {
-    const delComment = users.filter((comment) => comment.id !== id);
-    setUser(delComment);
-  };
+    getCommentList();
+  }, []);
 
   return (
     <div>
@@ -35,17 +46,17 @@ function Comment() {
         <input
           placeholder="댓글을 입력해주세요"
           type="text"
-          value={comment}
-          onChange={handleInputChange}
+          value={newComment}
+          onChange={handleNewComment}
         />
-        <button onClick={() => addcommnet()}>댓글 추가</button>
+        <button onClick={() => addComment()}>댓글 추가</button>
       </form>
 
       <div>
-        {users.map((user) => (
-          <div key={user.id}>
-            {user.comment}
-            <button onClick={() => deleteComment(user.id)}>삭제하기</button>
+        {commentList.map((comment) => (
+          <div key={comment.id}>
+            {comment.comment}
+            <button onClick={() => deleteComment(comment.id)}>삭제하기</button>
           </div>
         ))}
       </div>
@@ -53,4 +64,4 @@ function Comment() {
   );
 }
 
-export default Comment;
+export default CommentList;

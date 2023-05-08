@@ -6,7 +6,9 @@ function Title(props) {
 
   /** 부모컴포넌트의 스테이트 변경을 위한 useEffect */
   useEffect(()=>{
-    props.getQuestinObj({title})
+    if(props.getQuestinObj){
+      props.getQuestinObj({title})
+    }
   },[title])
 
   const titlechange = (e) => {

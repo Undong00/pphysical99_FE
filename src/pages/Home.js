@@ -92,7 +92,7 @@ function Home() {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             placeholder="비밀번호를 입력하세요"
             value={password}
             onChange={setPassword}
@@ -109,7 +109,7 @@ function Home() {
             navigate("/join");
           }}
         >
-          취소
+          회원가입
         </button>
       </div>
     </div>
