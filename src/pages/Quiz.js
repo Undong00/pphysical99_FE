@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
 import Body from "../components/Body";
 import Title from "../components/Title";
 import Comment from "../components/Comment";
@@ -7,8 +7,8 @@ import { isEdit } from "../redux/modules/componentMode";
 import Answer from "../components/Answer";
 import * as CSS from "../style/commonStyle";
 import { useParams } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
-import { quizQuiz } from "../api/quiz";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -18,30 +18,81 @@ function Quiz() {
   const dispatch = useDispatch();
   //전역 스토어에서 현재 게시글이 수정상태인지 여부를 가져온다.
   const isEditMode = useSelector((state) => state.componentMode.isEdit);
-  // 디스패쳐를 통해 import한 isEdit에 값을 넘겨준다.
-  // true, false를 명시적으로 넘겨줌. 수정모드 하고시으면 이걸 트루로 버튼에서 바꿔준다.
+  
+  // 상세조회
+  const queryClient = useQueryClient();
+  const { isLoading, isError, data } = useQuery("quizDetails", () => quizDetails(id));
+
+  // 수정
+  const quizModifyMutate = useMutation(quizModify, {
+    onSuccess: () => {
+      // TODO 새로 리로딩 하는 거 추가.
+    },
+    onError: ()=>{
+      console.log("수정에러")
+    }
+  })
+
+  // 삭제
+  const quizDeleteMutate = useMutation(quizDelete, {
+    onSuccess: () => {
+      // TODO 삭제 성공후 화면 이동
+      alert("삭제완료하였습니다.")
+    },
+    onError: ()=>{
+      console.log("삭제에러")
+    }
+  })
+
   const handleButtonClick = (e) => {
     dispatch(isEdit(!isEditMode));
     if (e.target.innerText === "✅") {
-      // todo 저장 로직 추가
+      modifyHandler()
     }
   };
 
-  const queryClient = useQueryClient();
-  const { isLoading, isError, data } = useQuery("quizQuiz", () => quizQuiz(1)); // TODO 백앤드 api 후 프롭스 처리가 완료되면 없애도 된다.
+  const modifyHandler = () => {
+    console.log(":::: 퀴즈 수정 최종 전달값, ",{quizId:id, modifyValue:questionObj})
+    quizModifyMutate.mutate({quizId:id, modifyValue:questionObj})
+  }
 
-  // 조회시 userid를 디비에서 받아온 값에서 꺼낸다.
-  // userid랑 쿠키에 등록되어있는 유저아이디와 일치 여부를 확인하다.
-  // 일치하면 isMine = true를 바디와, 타이틀 컴포넌트에 내려준다.
+  const deleteHandler = (quizId) => {
+    console.log(":::: 퀴즈 삭제 최종 전달값, ",id)
+    quizDeleteMutate.mutate(id)
+  }
+  
+  // 서버에 담을 값들
+  const [questionObj, setQuestionObj] = useState({
+    title: "",
+    content: "",
+  });
+
+  const getQuestinObj = (x) => {
+    const resolve = { x };
+    setQuestionObj({ ...questionObj, ...resolve.x });
+  };
+
+  useEffect(() => {
+    console.log(questionObj);
+  }, [questionObj]);
+
+
+  // 조회 로딩, 조회 에러시 화면에 나타날 내용 TODO 서버랑 붙이고 주석풀기
+  // if (isLoading) {
+  //   return <h1>로딩중입니다.</h1>
+  // }
+  // if (isError) {
+  //   return <h1>에러</h1>
+  // }
 
   return (
     <CSS.Main>
-      <Title isEdit={isEditMode} data={data} />
-      <button>삭제하기</button>
+      <Title isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj}/>
+      <button onClick={deleteHandler}>삭제하기</button>
       <button onClick={handleButtonClick}>{isEditMode ? "✅" : "✍️"}</button>
-      <Body isEdit={isEditMode} data={data} />
+      <Body isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj}/>
       <Answer isEdit={isEditMode} data={data} />
-      <Comment />
+      <Comment data={data}/>
     </CSS.Main>
   );
 }

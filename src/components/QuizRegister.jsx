@@ -1,4 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
+import { useMutation } from "react-query";
+import { quizRegister } from "../api/quiz";
 
 function QuizRegister(props) {
 
@@ -35,16 +37,29 @@ function QuizRegister(props) {
     }
 
     const quizRegisterBtnEventHander = ()=>{
-        console.log("유효성체크")
         if(!answerObj.correct || !answerObj.correct.trim()){ // null.undeifined..  || ''
             alert("정답 선택지는 필수입니다.")
             correctInput.current.focus(); 
             setAnswerObj({...answerObj, ...{correct:''}})
         }else{
-            console.log("서버에 보낼 최종값. 부모컴포넌트로 부터 받음 : ", props.questionObj)
-            // TODO 서버에 데이터 보내기
-            // 서버랑 통신 후에 처리 -> 게시글로 이동하기
+            quizRegisterMutateCall(props.questionObj)
+            // 게시글로 이동하기
         }
+    }
+
+    const quizRegisterMutate = useMutation(quizRegister, {
+        onSuccess: () => {
+        // TODO 등록 다되고 등록 게시글로 바로 이동
+        },
+        onError: ()=>{
+        console.log("등록에러")
+        }
+    })
+
+    const quizRegisterMutateCall = (finalValue) => {
+        console.log("서버에 보낼 최종값. 부모컴포넌트로 부터 받음 : ", props.questionObj)
+        console.log(":::: 퀴즈 등록 최종 전달값, ",finalValue)
+        quizRegisterMutate.mutate(finalValue)
     }
 
     return (
