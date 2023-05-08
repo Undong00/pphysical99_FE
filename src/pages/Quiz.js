@@ -7,6 +7,8 @@ import { isEdit } from "../redux/modules/componentMode";
 import Answer from "../components/Answer";
 import * as CSS from "../style/commonStyle";
 import { useParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "react-query";
+import { quizQuiz } from "../api/quiz";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -18,9 +20,15 @@ function Quiz() {
   const isEditMode = useSelector((state) => state.componentMode.isEdit);
   // 디스패쳐를 통해 import한 isEdit에 값을 넘겨준다.
   // true, false를 명시적으로 넘겨줌. 수정모드 하고시으면 이걸 트루로 버튼에서 바꿔준다.
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
     dispatch(isEdit(!isEditMode));
+    if (e.target.innerText === "✅") {
+      // todo 저장 로직 추가
+    }
   };
+
+  const queryClient = useQueryClient();
+  const { isLoading, isError, data } = useQuery("quizQuiz", () => quizQuiz(1)); // TODO 백앤드 api 후 프롭스 처리가 완료되면 없애도 된다.
 
   // 조회시 userid를 디비에서 받아온 값에서 꺼낸다.
   // userid랑 쿠키에 등록되어있는 유저아이디와 일치 여부를 확인하다.
@@ -28,11 +36,11 @@ function Quiz() {
 
   return (
     <CSS.Main>
-      <Title isEdit={isEditMode} />
+      <Title isEdit={isEditMode} data={data} />
       <button>삭제하기</button>
-      <button onClick={handleButtonClick}>{isEditMode ? "✍️" : "✅"}</button>
-      <Body isEdit={isEditMode} />
-      <Answer isEdit={isEditMode} />
+      <button onClick={handleButtonClick}>{isEditMode ? "✅" : "✍️"}</button>
+      <Body isEdit={isEditMode} data={data} />
+      <Answer isEdit={isEditMode} data={data} />
       <Comment />
     </CSS.Main>
   );

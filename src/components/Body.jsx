@@ -14,9 +14,16 @@ function Body(props) {
     }
   }, [body]);
 
+  useEffect(() => {
+    if (props.data) {
+      setBody(props.data.data.data.quizContent);
+      console.log(props.data.data.data.quizContent);
+    }
+  }, [props.data]);
+
   return (
     <div>
-      {!props.isEditMode ? (
+      {!props.isEdit ? (
         <div>{body}</div>
       ) : (
         <textarea
