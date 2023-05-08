@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as CSS from "../style/commonStyle";
+import { useNavigate } from "react-router-dom";
 
 const List = () => {
+  const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]); // 퀴즈 목록을 담을 상태
 
   useEffect(() => {
@@ -21,7 +23,12 @@ const List = () => {
     <CSS.Main>
       <div>
         {quizzes.map((quiz) => (
-          <div key={quiz.id}>
+          <div
+            key={quiz.id}
+            onClick={() => {
+              navigate(`/quiz/${quiz.id}`);
+            }}
+          >
             <div>{quiz.title}</div>
             <div>{quiz.content}</div>
             <div>{quiz.solved}</div>

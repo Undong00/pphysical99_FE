@@ -53,13 +53,9 @@ function Home() {
       });
       // alert("로그인 되었습니다.");
 
-      console.log(response.data.token);
       navigate("/List");
-      setCookie("token", response.data.token, {
+      setCookie("userId", trimUserId, {
         path: "/",
-
-        // secure: true,
-        // httpOnly: true, //httpOnly 옵션은 .com 등으로 끝나는 일반적인 도메인에만 적용가능하다. IP나 호스트네임의 경우 사용하지 못 한다.
       });
 
       // setIsLoggedIn(true);
