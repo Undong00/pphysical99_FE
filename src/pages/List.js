@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-// quizList 함수를 import
 import axios from "axios";
+import * as CSS from "../style/commonStyle";
+
 const List = () => {
   const [quizzes, setQuizzes] = useState([]); // 퀴즈 목록을 담을 상태
 
@@ -17,7 +18,7 @@ const List = () => {
   }, []);
 
   return (
-    <div>
+    <CSS.Main>
       <div>
         {quizzes.map((quiz) => (
           <div key={quiz.id}>
@@ -27,7 +28,7 @@ const List = () => {
           </div>
         ))}
       </div>
-    </div>
+    </CSS.Main>
   );
 };
 
