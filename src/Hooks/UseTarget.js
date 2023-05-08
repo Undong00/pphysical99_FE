@@ -6,3 +6,8 @@ export function useInput(initialValue = "") {
   const handlechange = (e) => setValue(e.target.value);
   return [value, handlechange];
 }
+
+// const confirmOnChangeHandler = (e) => {
+//   setConfirmPostPw(e.target.value);
+//   setHelpMsg("");
+// };
