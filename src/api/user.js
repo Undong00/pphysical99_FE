@@ -1,11 +1,21 @@
-import api from "./apiConfig";
+import api, {jwtInstance} from "./apiConfig";
+
+/**
+ * 아이디 중복체크
+ * @param { ”userId”: “userId”} inputValue
+ * @returns { ”success”: boolean, ”message”: “중복확인”, ”data”: null } response
+ */
+export const validId = async (inputValue) => {
+  const response = await api.post(`/signup/valid/`, inputValue);
+  return response;
+};
 
 /**
  * 회원가입
  * @param { ”userId”: “userId”,”password”: “password”,} inputValue
  * @returns { ”success”: boolean, ”message”: “회원 가입 완료!”, ”data”: null } response
  */
-export const signUpUser = async (inputValue) => {
+export const signUp = async (inputValue) => {
   const response = await api.post(`/signup/`, inputValue);
   return response;
 };
@@ -15,19 +25,7 @@ export const signUpUser = async (inputValue) => {
  * @param { ”userId”: “userId”,”password”: “password”,} inputValue
  * @returns { ”success”: boolean, ”message”: “회원 가입 완료!”, ”data”: null } response
  */
-export const loginUser = async (inputValue) => {
+export const login = async (inputValue) => {
   const response = await api.post(`/login/`, inputValue);
   return response;
 };
-
-// // 토큰정보확인
-// export const chkToken = async (token) => {
-//     const response = await api.get(`/user/`, {
-//         headers: {
-//         'Content-Type': 'application/json',
-//         'authorization': 'Bearer '+ token,
-//         'x-requested-with': 'bamboo-forest',
-//         'x-cors-api-key': 'temp_77c33b11fb4f65211c70c8e6ddcc8768'
-//     }})
-//     return response
-// }

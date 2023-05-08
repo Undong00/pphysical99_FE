@@ -1,14 +1,13 @@
 import React from "react";
-// import Answer from "../components/Answer";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import { useMutation } from 'react-query';
 import { useInput } from "../Hooks/UseTarget";
 import { useRef } from "react";
+import { login } from "../api/user"
+import { getCookie, setCookie } from "../cookie/Cookie"
 // 로그인
 
 function Home() {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
   const [userId, setUserId] = useInput("");
   const [password, setPassword] = useInput("");
@@ -17,16 +16,32 @@ function Home() {
   const userIdRef = useRef(null);
   const passwordRef = useRef(null);
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 서버에 요청 (로그인)
+  const loginMutate = useMutation(login, {
+    onSuccess: (response) => {
+      if (response.data.Authorization) {
+        setCookie('Authorization', response.data.Authorization, {
+          path: "/",
+        })
+      }
+      const jwt = getCookie("Authorization");
+      if (jwt) {
+        alert(`${trimUserId}님 환영합니다.`)
+        setCookie('userId', trimUserId)
+        navigate('/list')
+      }
+    },
+    onError: (error) => {
+      alert(`일치하는 계정정보를 찾을 수 없습니다.\n입력하신 ID, 혹은 비밀번호를 확인해주세요.`)
+    }
+  })
 
-  // const userIdhandleChange = (e) => {
-  //   setUserId(e.target.value);
-  // };
-  // const passwordhandleChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
+  // 로그인 api call
+  const loginMutateCall = () => {
+    console.log(':::: 로그인 최종 값, ',{ id: trimUserId, password: trimPassword })
+    loginMutate.mutate({ id: trimUserId, password: trimPassword })
+  }
 
-  // 리액트 쿼리
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!trimUserId) {
@@ -39,38 +54,15 @@ function Home() {
       passwordRef.current.focus();
       return;
     }
-
     if (trimPassword.length === 0 || trimPassword.length === 0) {
       alert("아이디와 비밀번호를 입력해주세요");
       userIdRef.current.focus();
       return;
     }
-    try {
-      const response = await axios.post("http://3.38.191.164/login", {
-        // 바꿔임마
-        id: userId,
-        password,
-      });
-      // alert("로그인 되었습니다.");
-      console.log(trimUserId);
 
-      navigate("/List");
-      setCookie("userId", trimUserId, {
-        path: "/",
-      });
-
-      // setIsLoggedIn(true);
-      // 유효성 검사
-    } catch (error) {
-      console.log(error);
-    }
+    loginMutateCall()
   };
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/", { replace: true }); // isLoggedIn값이 true이면 이동 전에 페이지 이동 x
-  //   }
-  // }, [isLoggedIn, navigate]);
   return (
     <div>
       <div>
