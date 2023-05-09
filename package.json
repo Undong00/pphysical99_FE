@@ -13,14 +13,18 @@
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-player": "^2.12.0",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "react-youtube": "^10.1.0",
+    "react-youtube-background": "^1.0.0",
     "redux": "^4.2.1",
     "styled-components": "^5.3.10",
     "sweetalert2": "^11.7.5",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "youtube-background": "^1.0.14"
   },
   "scripts": {
     "start": "react-scripts start",

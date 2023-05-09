@@ -8,6 +8,7 @@ import Quiz from "../pages/Quiz";
 import Register from "../pages/Register";
 import List from "../pages/List";
 import Test from "../pages/Test";
+import Go from "../pages/Go";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/list" element={<List />} />
         <Route path="/test" element={<Test />}></Route>
+        <Route path="/go" element={<Go />} />
       </Routes>
     </BrowserRouter>
   );

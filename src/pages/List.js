@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { quizList } from "../api/quiz";
 
-const List = () => {
+const List = (props) => {
   const navigate = useNavigate();
   // 비동기
 
   const [quizzes, setQuizzes] = useState([]); // 퀴즈 목록을 담을 상태
   const { isLoading, isError, data } = useQuery("quizList", quizList);
+  // const [isdone, setIsDone] = useState(props.data.data.data.solved);
 
   useEffect(() => {
     if (data) {
@@ -33,7 +34,6 @@ const List = () => {
   return (
     <CSS.Main>
       <div>
-        {/* 데이터가 언디파인드 ! = > true */}
         {data ? (
           quizzes.map((quiz) => (
             <div
@@ -42,9 +42,10 @@ const List = () => {
                 navigate(`/quiz/${quiz.id}`);
               }}
             >
+              {console.log(quiz)}
               <div>{quiz.title}</div>
               <div>{quiz.content}</div>
-              <div>{quiz.solved}</div>
+              {quiz.solved ? <div>푼 문제</div> : <div>안 푼 문제</div>}
             </div>
           ))
         ) : (
@@ -54,5 +55,4 @@ const List = () => {
     </CSS.Main>
   );
 };
-
 export default List;
