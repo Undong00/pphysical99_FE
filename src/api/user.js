@@ -6,7 +6,7 @@ import api, {jwtInstance} from "./apiConfig";
  * @returns { ”success”: boolean, ”message”: “중복확인”, ”data”: null } response
  */
 export const validId = async (inputValue) => {
-  const response = await api.post(`/signup/valid/`, inputValue);
+  const response = await api.post(`/signup/valid`, inputValue);
   return response;
 };
 
@@ -16,7 +16,7 @@ export const validId = async (inputValue) => {
  * @returns { ”success”: boolean, ”message”: “회원 가입 완료!”, ”data”: null } response
  */
 export const signUp = async (inputValue) => {
-  const response = await api.post(`/signup/`, inputValue);
+  const response = await api.post(`/signup`, inputValue);
   return response;
 };
 
@@ -26,6 +26,6 @@ export const signUp = async (inputValue) => {
  * @returns { ”success”: boolean, ”message”: “회원 가입 완료!”, ”data”: null } response
  */
 export const login = async (inputValue) => {
-  const response = await api.post(`/login/`, inputValue);
+  const response = await api.post(`/login`, inputValue);
   return response;
 };
