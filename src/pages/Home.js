@@ -22,17 +22,19 @@ function Home() {
   // 서버에 요청 (로그인)
   const loginMutate = useMutation(login, {
     onSuccess: (response) => {
-      if (response.data.Authorization) {
-        setCookie('Authorization', response.data.Authorization, {
-          path: "/",
-        })
-      }
-      const jwt = getCookie("Authorization");
-      if (jwt) {
+      // 응답결과 헤더에 토큰 받음
+      // if (response.data.Authorization) {
+      //   setCookie('Authorization', response.data.Authorization, {
+      //     path: "/",
+      //   })
+      // }
+      // const jwt = getCookie("Authorization");
+      // if (jwt) {
+        // 헤더에 Authorization
         alert(`${trimUserId}님 환영합니다.`)
         setCookie('userId', trimUserId)
         navigate('/list')
-      }
+      // }
     },
     onError: (error) => {
       alert(`일치하는 계정정보를 찾을 수 없습니다.\n입력하신 ID, 혹은 비밀번호를 확인해주세요.`)
@@ -41,8 +43,8 @@ function Home() {
 
   // 로그인 api call
   const loginMutateCall = () => {
-    console.log(':::: 로그인 최종 값, ', { id: trimUserId, password: trimPassword })
-    loginMutate.mutate({ id: trimUserId, password: trimPassword })
+    console.log(':::: 로그인 최종 값, ', { userId: trimUserId, password: trimPassword })
+    loginMutate.mutate({ userId: trimUserId, password: trimPassword })
   }
 
   const handleSubmit = async (event) => {

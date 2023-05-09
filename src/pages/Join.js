@@ -5,7 +5,6 @@ import { useMutation } from "react-query";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 import { validId, signUp } from "../api/user";
-import axios from "axios";
 import * as CSS from "../style/commonStyle"
 import logoPPhysical99 from "../assets/logo_pphysical99.png"
 
