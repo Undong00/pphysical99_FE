@@ -13,7 +13,9 @@ function CommentList(props) {
   useEffect(() => {
     if (props.data) {
       setPostId(props.data.data.data.id);
-      setCommentList([...props.data.data.data.commentList]);
+      if (Array.isArray(props.data.data.data.commentList)) {
+        setCommentList([...props.data.data.data.commentList]);
+      }
     }
   }, [props.data]);
 
@@ -24,9 +26,11 @@ function CommentList(props) {
   const addCommentMutate = useMutation(addComment, {
     onSuccess: (reponse) => {
       //TODO 댓글 새로 조회 추가 window.location.reload();
+
       setCommentList((reloadCommentList) => [
+        // 붙이면서
         ...reloadCommentList,
-        { id: reponse.data, comment: newComment }, // 댓글의 아이디
+        { postId: reponse.data.data, comment: newComment }, // 댓글의 아이디
       ]);
       setNewComment("");
     },
@@ -45,10 +49,12 @@ function CommentList(props) {
 
   const deleteCommentMutate = useMutation(deleteComment, {
     onSuccess: () => {
+      window.location.reload();
+
       //TODO 댓글 목록 새로 조회 추가 window.location.reload();
-      setCommentList((reloadCommentList) => [
-        reloadCommentList.fillter((comment) => comment.id !== commentId),
-      ]);
+      setCommentList((reloadCommentList) =>
+        reloadCommentList.filter((comment) => comment.id !== commentId)
+      );
     },
     onError: () => {
       console.log("댓글 삭제중 에러 발생함");
@@ -77,6 +83,7 @@ function CommentList(props) {
         {commentList.map((comment) => (
           <div key={comment.id}>
             {comment.comment}
+            {console.log(comment)};
             <button onClick={() => deleteCommentMutateCall(comment.id)}>
               삭제하기
             </button>

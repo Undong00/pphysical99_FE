@@ -1,4 +1,4 @@
-import api, {jwtInstance} from "./apiConfig";
+import api, { jwtInstance } from "./apiConfig";
 
 // https://0a98f1f5-0d64-4224-be67-8457351a3d32.mock.pstmn.io/quiz
 
@@ -8,7 +8,8 @@ import api, {jwtInstance} from "./apiConfig";
  * @returns response
  */
 export const quizList = async () => {
-  const response = await jwtInstance.get(`/quiz`); 
+  const response = await jwtInstance.get(`/quiz`);
+  console.log(response);
   return response;
 };
 
@@ -18,7 +19,7 @@ export const quizList = async () => {
  * @returns response
  */
 export const quizDetails = async (inputValue) => {
-  const response = await jwtInstance.get(`/quiz/`+inputValue); 
+  const response = await jwtInstance.get(`/quiz/` + inputValue);
   return response;
 };
 
@@ -28,7 +29,11 @@ export const quizDetails = async (inputValue) => {
  * @returns response
  */
 export const quizModify = async (value) => {
-  const response = await jwtInstance.put(`/quiz/`+value.quizId, value.modifyValue); 
+  const response = await jwtInstance.put(
+    `/quiz/` + value.quizId,
+    value.modifyValue,
+    console.log(value.quizId)
+  );
   return response;
 };
 
@@ -38,7 +43,7 @@ export const quizModify = async (value) => {
  * @returns response
  */
 export const quizDelete = async (quizId) => {
-  const response = await jwtInstance.delete(`/quiz/`+quizId); 
+  const response = await jwtInstance.delete(`/quiz/` + quizId);
   return response;
 };
 
@@ -48,10 +53,12 @@ export const quizDelete = async (quizId) => {
  * @returns response
  */
 export const quizSolving = async (value) => {
-  const response = await jwtInstance.post(`/quiz/`+value.quizId+'/solving', value.correct); 
+  const response = await jwtInstance.post(
+    `/quiz/` + value.quizId + "/solving",
+    value.correct
+  );
   return response;
 };
-
 
 /**
  * 퀴즈 등록
@@ -59,6 +66,6 @@ export const quizSolving = async (value) => {
  * @returns response
  */
 export const quizRegister = async (value) => {
-  const response = await jwtInstance.post(`/quiz/register`, value); 
+  const response = await jwtInstance.post(`/quiz/register`, value);
   return response;
 };
