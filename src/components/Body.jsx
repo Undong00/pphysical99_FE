@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import * as CSS from "../style/commonStyle"
 // 내용
 function Body(props) {
   const [body, setBody] = useState("");
@@ -24,9 +25,14 @@ function Body(props) {
   return (
     <div>
       {!props.isEdit ? (
-        <div>{body}</div>
+        <CSS.BodyTextarea
+        placeholder="내용을 입력하세요."
+        type="text"
+        value={body}
+        readOnly
+        />
       ) : (
-        <textarea
+        <CSS.BodyTextarea
           placeholder="내용을 입력하세요."
           type="text"
           value={body}
