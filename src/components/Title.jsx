@@ -18,14 +18,14 @@ function Title(props) {
 
   useEffect(() => {
     if (props.data) {
-      setTitle(props.data.data.data.quizTitle);
+      setTitle(props.data.data.data.title);
     }
   }, [props.data]);
 
   return (
     <CSS.TitleInputWrapDiv>
       {!props.isEdit ? (
-        <CSS.TitleInput readOnly placeholder="당신의 퀴즈 제목을 입력하세요." type="text" value={title}/>
+        <CSS.TitleInput readOnly type="text" value={title}/>
       ) : (
         <CSS.TitleInput placeholder="당신의 퀴즈 제목을 입력하세요." type="text" value={title} onChange={titlechange}/>
       )}

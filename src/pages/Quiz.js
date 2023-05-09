@@ -10,9 +10,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { QuizPraimarhyButton } from "../style/commonStyle";
-import { QuizNagativeButton } from "../style/commonStyle";
+
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -30,6 +28,7 @@ function Quiz() {
     quizDetails(id)
   );
 
+  
   // 수정
   const quizModifyMutate = useMutation(quizModify, {
     onSuccess: () => {
@@ -73,9 +72,16 @@ function Quiz() {
 
   // 서버에 담을 값들
   const [questionObj, setQuestionObj] = useState({
-    title: "",
-    content: "",
+    title:'',
+    content: '',
   });
+
+  useEffect(()=>{
+    if(data){
+      setQuestionObj({title: data.data.data.title,
+        content: data.data.data.content})
+    }
+  },[data])
 
   const getQuestinObj = (x) => {
     const resolve = { x };
