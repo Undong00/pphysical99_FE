@@ -29,8 +29,9 @@ function Join() {
   const validIdMutate = useMutation(validId, {
     onSuccess: (response) => {
       setValiedId(true);
-      alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`);
-      navigate("/");
+      
+      alert(`${userId}은(는) 사용가능한 아이디 입니다.`);
+      //navigate("/");
     },
     onError: (error) => {
       setValiedId(false);
@@ -53,18 +54,6 @@ function Join() {
       console.log(err);
     }
   };
-
-  const testAxios = async () => {
-    /**axios.. test.... */
-    await axios.post('http://13.125.188.38:8080/',
-      {
-        headers: {
-
-        },
-        data: { userId: trimUserId },
-      }
-    );
-  }
 
   // 회원가입 요청 선언
   const signUpMutate = useMutation(signUp, {
