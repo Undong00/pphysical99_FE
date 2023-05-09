@@ -343,3 +343,24 @@ export const BodyTextarea = styled.textarea`
   margin: 0px;
   transition: border-color 0.1s ease 0s, background-color 0.1s ease 0s;
 `
+/**Answer */
+export const AlertWrapDiv = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 14px;
+    background-color: #ffeeee;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    width: 100%;
+    margin: 0;
+    line-height: 1.5;
+`
+export const ContentDiv = styled.div`
+    font-family: Pretendard, -apple-system, “system-ui”, "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    white-space: nowrap;
+`
