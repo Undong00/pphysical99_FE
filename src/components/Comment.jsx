@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addComment, deleteComment } from "../api/comment";
 import { useParams } from "react-router-dom";
-import { quizDetails } from "../api/quiz";
 
 function CommentList(props) {
+  //리액트 쿼리 관련
+  const queryClient = useQueryClient();
+  
+  // 내부 스테이트
   const params = useParams();
   const [commentList, setCommentList] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [postId, setPostId] = useState("");
   const [commentId, setCommentId] = useState("");
 
-  const { data: quizData, isLoading } = useQuery(
-    ["quiz", params.id],
-    () => quizDetails(params.id),
-    {
-      enabled: !!params.id,
-    }
-  );
-
   useEffect(() => {
-    if (quizData) {
-      setPostId(quizData.id);
-      if (Array.isArray(quizData.commentList)) {
-        setCommentList([...quizData.commentList]);
+    if (props.data) {
+      setPostId(props.data.id);
+      if (Array.isArray(props.data.data.data.commentList)) {
+        setCommentList([...props.data.data.data.commentList]);
       }
     }
-  }, [quizData]);
+  }, [props.data]);
 
   const handleNewComment = (e) => {
     setNewComment(e.target.value);
@@ -35,11 +30,12 @@ function CommentList(props) {
     onSuccess: (reponse) => {
       //TODO 댓글 새로 조회 추가 window.location.reload();
 
-      setCommentList((reloadCommentList) => [
-        // 붙이면서
-        ...reloadCommentList,
-        { Id: reponse.data.data, comment: newComment }, // 댓글의 아이디
-      ]);
+      // setCommentList((reloadCommentList) => [
+      //   // 붙이면서
+      //   ...reloadCommentList,
+      //   { id: reponse.data.data, comment: newComment }, // 댓글의 아이디
+      // ]);
+      queryClient.invalidateQueries("quizDetails");
       setNewComment("");
     },
     onError: () => {
@@ -57,12 +53,11 @@ function CommentList(props) {
 
   const deleteCommentMutate = useMutation(deleteComment, {
     onSuccess: () => {
-      window.location.reload();
-
-      //TODO 댓글 목록 새로 조회 추가 window.location.reload();
-      setCommentList((reloadCommentList) =>
-        reloadCommentList.filter((comment) => comment.id !== commentId)
-      );
+      queryClient.invalidateQueries("quizDetails");
+      // //TODO 댓글 목록 새로 조회 추가 window.location.reload();
+      // setCommentList((reloadCommentList) =>
+      //   reloadCommentList.filter((comment) => comment.id !== commentId)
+      // );
     },
     onError: () => {
       console.log("댓글 삭제중 에러 발생함");

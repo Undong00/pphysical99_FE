@@ -17,8 +17,8 @@ function Body(props) {
 
   useEffect(() => {
     if (props.data) {
-      setBody(props.data.data.data.quizContent);
-      console.log(props.data.data.data.quizContent);
+      setBody(props.data.data.data.content);
+      console.log(props.data.data.data.content);
     }
   }, [props.data]);
 
@@ -26,7 +26,6 @@ function Body(props) {
     <div>
       {!props.isEdit ? (
         <CSS.BodyTextarea
-        placeholder="내용을 입력하세요."
         type="text"
         value={body}
         readOnly
