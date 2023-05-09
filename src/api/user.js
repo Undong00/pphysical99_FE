@@ -23,13 +23,15 @@ export const signUp = async (inputValue) => {
 /**
  * 로그인
  * @param { ”userId”: “userId”,”password”: “password”,} inputValue
- * @returns { ”success”: boolean, ”message”: “회원 가입 완료!”, ”data”: null } response
+ * @returns { ”success”: boolean, ”message”: “로그인성공”, ”data”: null } response
  */
 export const login = async (inputValue) => {
   const response = await api.post(`/login`, inputValue);
-  if(response.data.success){
-    return new Promise.resolve()
-  }else{
-    return new Promise.reject()
-  }
+  console.log(">>>>>>>>>>>",response)
+  // if(response.data.success){
+  //   return Promise.resolve()
+  // }else{
+  //   return Promise.reject(new Error('fail'))
+  // }
+  return response
 };
