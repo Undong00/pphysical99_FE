@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 function CommentList(props) {
   //리액트 쿼리 관련
   const queryClient = useQueryClient();
-  
+
   // 내부 스테이트
   const params = useParams();
   const [commentList, setCommentList] = useState([]);
@@ -70,10 +70,6 @@ function CommentList(props) {
     deleteCommentMutate.mutate(id);
   };
 
-  const isCurrentUserComment = (comment) => {
-    return comment.user === props.currentUser;
-  };
-
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -90,12 +86,11 @@ function CommentList(props) {
         {commentList.map((comment) => (
           <div key={comment.id}>
             {comment.comment}
-            {console.log(comment)};
-            {isCurrentUserComment(comment) && (
+            {comment.userId === props.data.data.data.userId ? (
               <button onClick={() => deleteCommentMutateCall(comment.id)}>
                 삭제하기
               </button>
-            )}
+            ) : null}
           </div>
         ))}
       </div>
