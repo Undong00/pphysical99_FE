@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from 'react-query';
+import { useMutation } from "react-query";
 import { useInput } from "../Hooks/UseTarget";
 import { useRef } from "react";
-import { login } from "../api/user"
-import { getCookie, setCookie } from "../cookie/Cookie"
-import * as CSS from "../style/commonStyle"
-import logoPPhysical99 from "../assets/logo_pphysical99.png"
-import timer1 from "../assets/timer-1.png"
+import { login } from "../api/user";
+import { getCookie, setCookie } from "../cookie/Cookie";
+import * as CSS from "../style/commonStyle";
+import logoPPhysical99 from "../assets/logo_pphysical99.png";
+import timer1 from "../assets/timer-1.png";
 
 // 로그인
 function Home() {
@@ -30,22 +30,27 @@ function Home() {
       // }
       // const jwt = getCookie("Authorization");
       // if (jwt) {
-        // 헤더에 Authorization
-        alert(`${trimUserId}님 환영합니다.`)
-        setCookie('userId', trimUserId)
-        navigate('/list')
+      // 헤더에 Authorization
+      alert(`${trimUserId}님 환영합니다.`);
+      setCookie("userId", trimUserId);
+      navigate("/list");
       // }
     },
     onError: (error) => {
-      alert(`일치하는 계정정보를 찾을 수 없습니다.\n입력하신 ID, 혹은 비밀번호를 확인해주세요.`)
-    }
-  })
+      alert(
+        `일치하는 계정정보를 찾을 수 없습니다.\n입력하신 ID, 혹은 비밀번호를 확인해주세요.`
+      );
+    },
+  });
 
   // 로그인 api call
   const loginMutateCall = () => {
-    console.log(':::: 로그인 최종 값, ', { userId: trimUserId, password: trimPassword })
-    loginMutate.mutate({ userId: trimUserId, password: trimPassword })
-  }
+    console.log(":::: 로그인 최종 값, ", {
+      userId: trimUserId,
+      password: trimPassword,
+    });
+    loginMutate.mutate({ userId: trimUserId, password: trimPassword });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,14 +70,19 @@ function Home() {
       return;
     }
 
-    loginMutateCall()
+    loginMutateCall();
   };
 
   return (
     <CSS.HomeWrapDiv>
       <CSS.HomeImgHeaderDiv>
         <img alt="timer1" width="160" height="68.5" src={timer1} />
-        <img alt="pphysical99Logo" width="220" height="40" src={logoPPhysical99} />
+        <img
+          alt="pphysical99Logo"
+          width="220"
+          height="40"
+          src={logoPPhysical99}
+        />
       </CSS.HomeImgHeaderDiv>
       <CSS.HomeMessageDiv>문제 풀러 가볼까요?🔥</CSS.HomeMessageDiv>
       <CSS.HomeWrapHomeForm>
@@ -99,7 +109,11 @@ function Home() {
         <CSS.Button onClick={handleSubmit}>로그인하기</CSS.Button>
       </CSS.HomeButtonWrapDiv>
       <CSS.HomeSpankWrapDiv>
-        <CSS.HomeSpan onClick={() => { navigate("/join") }}>
+        <CSS.HomeSpan
+          onClick={() => {
+            navigate("/join");
+          }}
+        >
           회원가입
         </CSS.HomeSpan>
       </CSS.HomeSpankWrapDiv>

@@ -11,6 +11,8 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { QuizPraimarhyButton } from "../style/commonStyle";
+import { QuizNagativeButton } from "../style/commonStyle";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -95,22 +97,27 @@ function Quiz() {
     <CSS.Main>
       <CSS.QuizHeaderWrapDiv>
         <CSS.QuizTitleDiv per="13">
-          <Title isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
+          <Title
+            isEdit={isEditMode}
+            data={data}
+            getQuestinObj={getQuestinObj}
+          />
+        </CSS.QuizTitleDiv>
+        <CSS.QuizTitleDiv per="1">{isEditMode?<CSS.QuizPraimarhyButton onClick={handleButtonClick} >수정완료</CSS.QuizPraimarhyButton>:<CSS.QuizNagativeButton onClick={handleButtonClick}>수정하기</CSS.QuizNagativeButton>}
+          
         </CSS.QuizTitleDiv>
         <CSS.QuizTitleDiv per="1">
-          {isEditMode?<CSS.QuizPraimarhyButton onClick={handleButtonClick} >수정완료</CSS.QuizPraimarhyButton>:<CSS.QuizNagativeButton onClick={handleButtonClick}>수정하기</CSS.QuizNagativeButton>}
-        </CSS.QuizTitleDiv>
-        <CSS.QuizTitleDiv per="1">
-          <CSS.QuizNagativeButton onClick={deleteHandler}>삭제하기</CSS.QuizNagativeButton>
+          <CSS.QuizNagativeButton onClick={deleteHandler}>
+            삭제하기
+          </CSS.QuizNagativeButton>
         </CSS.QuizTitleDiv>
       </CSS.QuizHeaderWrapDiv>
-      
+
       <Body isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
       <Answer isEdit={isEditMode} data={data} />
       <Comment data={data} />
     </CSS.Main>
   );
 }
-
 
 export default Quiz;
