@@ -5,23 +5,30 @@ import * as CSS from "../../style/commonStyle";
 function Navi() {
   const location = useLocation();
   const navigate = useNavigate();
-  const goRegister = ()=>{
-    navigate('/register')
-  }
+  const goRegister = () => {
+    navigate("/register");
+  };
   return (
     <>
-      {
-      (location.pathname === '/join' || location.pathname === '/') ? <></> :
+      {location.pathname === "/join" || location.pathname === "/" ? (
+        <></>
+      ) : (
         <CSS.ComNavi>
-          <NaviBtnWrapdDiv>
-          {(location.pathname === '/register' || location.pathname.includes('/quiz/'))? <></> : <NaviPrimaryBtn onClick={goRegister}>등록하기</NaviPrimaryBtn>}
-          <NaviNagativeBtn>로그아웃</NaviNagativeBtn>
-          </NaviBtnWrapdDiv>
+          <CSS.NaviBtnWrapdDiv>
+            {location.pathname === "/register" ||
+            location.pathname.includes("/quiz/") ? (
+              <></>
+            ) : (
+              <CSS.NaviPrimaryBtn onClick={goRegister}>
+                등록하기
+              </CSS.NaviPrimaryBtn>
+            )}
+            <CSS.NaviNagativeBtn>로그아웃</CSS.NaviNagativeBtn>
+          </CSS.NaviBtnWrapdDiv>
         </CSS.ComNavi>
-      }
+      )}
     </>
   );
 }
-
 
 export default Navi;

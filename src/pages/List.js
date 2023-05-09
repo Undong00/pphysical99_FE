@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 //import axios from "axios";
 import * as CSS from "../style/commonStyle";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query"
-import { quizList } from "../api/quiz"
+import { useQuery } from "react-query";
+import { quizList } from "../api/quiz";
 
 const List = () => {
   const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]); // 퀴즈 목록을 담을 상태
-  const { isLoading, isError, data } = useQuery('quizList', quizList)
+  const { isLoading, isError, data } = useQuery("quizList", quizList);
 
-  useEffect(()=>{
-    if(data){
-      setQuizzes(data);  // 가져온 데이터를 상태에 저장
+  useEffect(() => {
+    if (data) {
+      setQuizzes(data); // 가져온 데이터를 상태에 저장
     }
-  },[data])
+  }, [data]);
 
   // useEffect(() => {
   //   const fetchQuizzes = async () => {
