@@ -228,3 +228,118 @@ export const JoinIptBtnWrap = styled.div`
     flex-direction: row;
     gap: 5px;
 `
+
+/**TITLE PAGE */
+
+export const TitleInputWrapDiv = styled.div`
+    margin: 16px 0;
+`
+export const TitleInput = styled.input`
+    height: 44px;
+    padding: 10px 14px 11px;
+    font-size: 16px;
+    line-height: inherit;
+    letter-spacing: inherit;
+    border: 1px solid #eaebef;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    display: inline-block;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-family: "Noto Sans KR", "Noto Sans CJK KR", "맑은 고딕", "Malgun Gothic", sans-serif;
+    font-size: 15px;
+    line-height: 21px;
+    resize: none;
+    margin: 0px;
+    transition: border-color 0.1s ease 0s, background-color 0.1s ease 0s;
+`
+
+/** ANSWER */
+export const AnswerInputWrapDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap : 5px;
+  align-items: center;
+
+`
+export const AnswerDiv = styled.div`
+  flex-grow : ${(props) => {
+    return props.per
+  }}
+`
+
+/** Quzi */
+export const QuizHeaderWrapDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap : 5px;
+  align-items: center;
+
+`
+export const QuizTitleDiv = styled.div`
+  flex-grow : ${(props) => {
+        return props.per
+  }}
+`
+export const QuizNagativeButton = styled.div`
+box-sizing: content-box;
+    background-color: #e9ecef;
+    border-radius: 20px;
+    color: #000;
+    font-family: Spoqa Han Sans Neo,"sans-serif";
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -.45px;
+    line-height: 1;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+`
+
+export const QuizPraimarhyButton = styled.div`
+box-sizing: content-box;
+    border-radius: 20px;
+    font-family: Spoqa Han Sans Neo,"sans-serif";
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -.45px;
+    line-height: 1;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+`
+
+/* BODY */
+export const BodyTextarea = styled.textarea`
+  overflow: hidden;
+  overflow-wrap: break-word;
+  
+  padding: 10px 14px 11px;
+    
+  line-height: inherit;
+  letter-spacing: inherit;
+  border: 1px solid #eaebef;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow-y: auto!important;
+  height: 173px!important;
+  line-height: 1.4;
+
+  display: inline-block;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: "Noto Sans KR", "Noto Sans CJK KR", "맑은 고딕", "Malgun Gothic", sans-serif;
+  font-size: 15px;
+  resize: none;
+  margin: 0px;
+  transition: border-color 0.1s ease 0s, background-color 0.1s ease 0s;
+`
