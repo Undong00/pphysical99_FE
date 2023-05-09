@@ -16,7 +16,6 @@ const List = () => {
     if (data) {
       setQuizzes(data.data.data); // 가져온 데이터를 상태에 저장
     }
-    console.log(data);
   }, [data]);
 
   // useEffect(() => {

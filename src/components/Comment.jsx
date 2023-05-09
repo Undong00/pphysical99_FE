@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { addComment, deleteComment } from "../api/comment";
 import { useParams } from "react-router-dom";
+import { quizDetails } from "../api/quiz";
 
 function CommentList(props) {
   const params = useParams();
@@ -10,19 +11,26 @@ function CommentList(props) {
   const [postId, setPostId] = useState("");
   const [commentId, setCommentId] = useState("");
 
+  const { data: quizData, isLoading } = useQuery(
+    ["quiz", params.id],
+    () => quizDetails(params.id),
+    {
+      enabled: !!params.id,
+    }
+  );
+
   useEffect(() => {
-    if (props.data) {
-      setPostId(props.data.data.data.id);
-      if (Array.isArray(props.data.data.data.commentList)) {
-        setCommentList([...props.data.data.data.commentList]);
+    if (quizData) {
+      setPostId(quizData.id);
+      if (Array.isArray(quizData.commentList)) {
+        setCommentList([...quizData.commentList]);
       }
     }
-  }, [props.data]);
+  }, [quizData]);
 
   const handleNewComment = (e) => {
     setNewComment(e.target.value);
   };
-
   const addCommentMutate = useMutation(addComment, {
     onSuccess: (reponse) => {
       //TODO 댓글 새로 조회 추가 window.location.reload();
@@ -30,7 +38,7 @@ function CommentList(props) {
       setCommentList((reloadCommentList) => [
         // 붙이면서
         ...reloadCommentList,
-        { postId: reponse.data.data, comment: newComment }, // 댓글의 아이디
+        { Id: reponse.data.data, comment: newComment }, // 댓글의 아이디
       ]);
       setNewComment("");
     },
@@ -67,6 +75,10 @@ function CommentList(props) {
     deleteCommentMutate.mutate(id);
   };
 
+  const isCurrentUserComment = (comment) => {
+    return comment.user === props.currentUser;
+  };
+
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -84,9 +96,11 @@ function CommentList(props) {
           <div key={comment.id}>
             {comment.comment}
             {console.log(comment)};
-            <button onClick={() => deleteCommentMutateCall(comment.id)}>
-              삭제하기
-            </button>
+            {isCurrentUserComment(comment) && (
+              <button onClick={() => deleteCommentMutateCall(comment.id)}>
+                삭제하기
+              </button>
+            )}
           </div>
         ))}
       </div>
