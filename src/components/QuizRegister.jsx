@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useMutation } from "react-query";
 import { quizRegister } from "../api/quiz";
+import styled from "styled-components";
 
 function QuizRegister(props) {
   const correctInput = useRef();
@@ -78,7 +79,6 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="정답 선택지를 입력해주세요."
         />
-      
       </div>
       <div>
         <div>첫번째 오답</div>
@@ -119,3 +119,8 @@ function QuizRegister(props) {
 }
 
 export default QuizRegister;
+
+const QuizRegisterContainer = styled.div`
+  background: linear-gradient(180deg, #141617 0%, #282c2e 83.33%), #141617;
+  padding: 80px 0px;
+`;

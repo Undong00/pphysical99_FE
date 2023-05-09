@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 // 제목
 function Title(props) {
   const [title, setTitle] = useState("");
