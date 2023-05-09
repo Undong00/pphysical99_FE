@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import * as CSS from "../style/commonStyle"
 // 제목
 function Title(props) {
   const [title, setTitle] = useState("");
@@ -23,19 +23,16 @@ function Title(props) {
   }, [props.data]);
 
   return (
-    <div>
+    <CSS.TitleInputWrapDiv>
       {!props.isEdit ? (
-        <div>{title}</div>
+        <CSS.TitleInput readOnly placeholder="당신의 퀴즈 제목을 입력하세요." type="text" value={title}/>
       ) : (
-        <input
-          placeholder="제목을 입력하세요"
-          type="text"
-          value={title}
-          onChange={titlechange}
-        />
+        <CSS.TitleInput placeholder="당신의 퀴즈 제목을 입력하세요." type="text" value={title} onChange={titlechange}/>
       )}
-    </div>
+    </CSS.TitleInputWrapDiv>
   );
 }
 
+
 export default Title;
+

@@ -27,7 +27,7 @@ export const signUp = async (inputValue) => {
  */
 export const login = async (inputValue) => {
   const response = await api.post(`/login`, inputValue);
-  console.log(">>>>>>>>>>>",response)
+  console.log(">>>>>>>>>>>>>헤더>",response.headers)
   // if(response.data.success){
   //   return Promise.resolve()
   // }else{
