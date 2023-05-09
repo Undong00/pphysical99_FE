@@ -33,7 +33,6 @@ function Quiz() {
   // 수정
   const quizModifyMutate = useMutation(quizModify, {
     onSuccess: () => {
-      // TODO 새로 리로딩 하는 거 추가.
       queryClient.invalidateQueries("quizDetails");
     },
     onError: () => {
@@ -44,7 +43,6 @@ function Quiz() {
   // 삭제
   const quizDeleteMutate = useMutation(quizDelete, {
     onSuccess: () => {
-      // TODO 삭제 성공후 화면 이동
       alert("삭제완료하였습니다.");
       navigate("/list");
     },
@@ -88,13 +86,12 @@ function Quiz() {
     console.log(questionObj);
   }, [questionObj]);
 
-  // 조회 로딩, 조회 에러시 화면에 나타날 내용 TODO 서버랑 붙이고 주석풀기
-  // if (isLoading) {
-  //   return <h1>로딩중입니다.</h1>
-  // }
-  // if (isError) {
-  //   return <h1>에러</h1>
-  // }
+  if (isLoading) {
+    return <h1>로딩중입니다.</h1>
+  }
+  if (isError) {
+    return <h1>에러</h1>
+  }
 
   return (
     <CSS.Main>
@@ -106,16 +103,8 @@ function Quiz() {
             getQuestinObj={getQuestinObj}
           />
         </CSS.QuizTitleDiv>
-        <CSS.QuizTitleDiv per="1">
-          {isEditMode ? (
-            <QuizPraimarhyButton onClick={handleButtonClick}>
-              수정완료
-            </QuizPraimarhyButton>
-          ) : (
-            <QuizNagativeButton onClick={handleButtonClick}>
-              수정하기
-            </QuizNagativeButton>
-          )}
+        <CSS.QuizTitleDiv per="1">{isEditMode?<CSS.QuizPraimarhyButton onClick={handleButtonClick} >수정완료</CSS.QuizPraimarhyButton>:<CSS.QuizNagativeButton onClick={handleButtonClick}>수정하기</CSS.QuizNagativeButton>}
+          
         </CSS.QuizTitleDiv>
         <CSS.QuizTitleDiv per="1">
           <CSS.QuizNagativeButton onClick={deleteHandler}>
