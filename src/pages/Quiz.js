@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -52,7 +53,7 @@ function Quiz() {
 
   const handleButtonClick = (e) => {
     dispatch(isEdit(!isEditMode));
-    if (e.target.innerText === "✅") {
+    if (e.target.innerText === "수정완료") {
       modifyHandler();
     }
   };
@@ -95,14 +96,24 @@ function Quiz() {
 
   return (
     <CSS.Main>
-      <Title isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
-      <button onClick={deleteHandler}>삭제하기</button>
-      <button onClick={handleButtonClick}>{isEditMode ? "✅" : "✍️"}</button>
+      <CSS.QuizHeaderWrapDiv>
+        <CSS.QuizTitleDiv per="13">
+          <Title isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
+        </CSS.QuizTitleDiv>
+        <CSS.QuizTitleDiv per="1">
+          {isEditMode?<QuizPraimarhyButton onClick={handleButtonClick} >수정완료</QuizPraimarhyButton>:<QuizNagativeButton onClick={handleButtonClick}>수정하기</QuizNagativeButton>}
+        </CSS.QuizTitleDiv>
+        <CSS.QuizTitleDiv per="1">
+          <CSS.QuizNagativeButton onClick={deleteHandler}>삭제하기</CSS.QuizNagativeButton>
+        </CSS.QuizTitleDiv>
+      </CSS.QuizHeaderWrapDiv>
+      
       <Body isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
       <Answer isEdit={isEditMode} data={data} />
       <Comment data={data} />
     </CSS.Main>
   );
 }
+
 
 export default Quiz;

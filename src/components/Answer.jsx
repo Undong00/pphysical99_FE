@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query"; // 서버요청, 쿼리 키 값으로 관리
+import { useMutation } from "react-query"; // 서버요청, 쿼리 키 값으로 관리
 import { useParams } from "react-router-dom"; // 패치의 파람
 import { useDispatch } from "react-redux"; //리듀서 실행
 import { quizSolving } from "../api/quiz";
 import { useRef } from "react";
+import styled from "styled-components";
+import * as CSS from "../style/commonStyle"
 
 function Answer(props) {
 
   const params = useParams();
-  const dispatcher = useDispatch();
   // 내부상태
   const [answerArr, setAnswerArr] = useState();
   const [answer, setAnswer] = useState("");
@@ -50,60 +51,54 @@ function Answer(props) {
   const quizSolvingMutate = useMutation(quizSolving, {
     onSuccess: () => {
       console.log("답안제출 성공")
-       // TODO 새로 리로딩 및 제출 값에 따라서 성공/실패 화면에 리턴해주기
+      // TODO 새로 리로딩 및 제출 값에 따라서 성공/실패 화면에 리턴해주기
     },
-    onError: ()=>{
+    onError: () => {
       console.log("답안제출통신에러")
     }
   })
 
   const quizSolvingMutateCall = (finalAnswer) => {
-    console.log(":::: 퀴즈 답안제출 최종 전달값, ",{quizId:params.id, correct:finalAnswer})
-    quizSolvingMutate.mutate({quizId:params.id, correct:finalAnswer})
+    console.log(":::: 퀴즈 답안제출 최종 전달값, ", { quizId: params.id, correct: finalAnswer })
+    quizSolvingMutate.mutate({ quizId: params.id, correct: finalAnswer })
   }
 
   return (
     <>
       {
-        // TODO '수정중 게시글' div css 처리
         props.isEdit ? (
           <div>수정중 게시글</div>
-        ) : (
-          <div
-            className="answerContainer"
-            style={{ display: "flex", flexDirection: "row", gap: "10px" }}
-          >
-            {answerArr && answerArr.length > 1 ? (
-              answerArr.map((answer) => {
+        ):(
+          (answerArr && answerArr.length > 1) ?
+          (
+              <CSS.AnswerInputWrapDiv>
+                <CSS.AnswerDiv per="14">
+                  <CSS.TitleInputWrapDiv>
+                    <CSS.TitleInput ref={answerInput} onChange={onChangeEventHandler} type="text" value={answer}></CSS.TitleInput>
+                  </CSS.TitleInputWrapDiv>
+                </CSS.AnswerDiv>
+                <CSS.AnswerDiv per="1">
+                  <button onClick={() => submitAnswer(answer)}>제출</button>
+                </CSS.AnswerDiv>
+            </CSS.AnswerInputWrapDiv>
+            )
+           :(
+            <div className="answerContainer" style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+              {answerArr && answerArr.map((answer) => {
                 return (
-                  <div
-                    onClick={onClickEventHandler}
-                    style={{
-                      flex: 1,
-                      background: "green",
-                      height: `calc(100vh - 90vh)`,
-                    }}
-                  >
+                  <div onClick={onClickEventHandler} style={{ flex: 1, background: "green",height: `calc(100vh - 90vh)`,}}>
                     {answer}
                   </div>
-                );
-              })
-            ) : (
-              <>
-                <input
-                  ref={answerInput}
-                  onChange={onChangeEventHandler}
-                  type="text"
-                  value={answer}
-                ></input>
-                <button onClick={() => submitAnswer(answer)}>제출</button>
-              </>
-            )}
-          </div>
+                  );
+                })}
+            </div>
+           ) 
         )
       }
     </>
-  );
-}
+    )
+  }
+
+
 
 export default Answer;
