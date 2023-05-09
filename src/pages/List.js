@@ -7,13 +7,16 @@ import { quizList } from "../api/quiz";
 
 const List = () => {
   const navigate = useNavigate();
+  // 비동기
+
   const [quizzes, setQuizzes] = useState([]); // 퀴즈 목록을 담을 상태
   const { isLoading, isError, data } = useQuery("quizList", quizList);
 
   useEffect(() => {
     if (data) {
-      setQuizzes(data); // 가져온 데이터를 상태에 저장
+      setQuizzes(data.data.data); // 가져온 데이터를 상태에 저장
     }
+    console.log(data);
   }, [data]);
 
   // useEffect(() => {
@@ -31,18 +34,23 @@ const List = () => {
   return (
     <CSS.Main>
       <div>
-        {quizzes.map((quiz) => (
-          <div
-            key={quiz.id}
-            onClick={() => {
-              navigate(`/quiz/${quiz.id}`);
-            }}
-          >
-            <div>{quiz.title}</div>
-            <div>{quiz.content}</div>
-            <div>{quiz.solved}</div>
-          </div>
-        ))}
+        {/* 데이터가 언디파인드 ! = > true */}
+        {data ? (
+          quizzes.map((quiz) => (
+            <div
+              key={quiz.id}
+              onClick={() => {
+                navigate(`/quiz/${quiz.id}`);
+              }}
+            >
+              <div>{quiz.title}</div>
+              <div>{quiz.content}</div>
+              <div>{quiz.solved}</div>
+            </div>
+          ))
+        ) : (
+          <div>로딩중..</div>
+        )}
       </div>
     </CSS.Main>
   );

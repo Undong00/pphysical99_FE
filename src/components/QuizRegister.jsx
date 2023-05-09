@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useMutation } from "react-query";
 import { quizRegister } from "../api/quiz";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 function QuizRegister(props) {
+  const navigate = useNavigate();
   const correctInput = useRef();
 
   const [answerObj, setAnswerObj] = useState({
@@ -50,7 +51,9 @@ function QuizRegister(props) {
 
   const quizRegisterMutate = useMutation(quizRegister, {
     onSuccess: (response) => {
-      // TODO 등록 다되고 등록 게시글로 바로 이동 // 붙이면서
+      // TODO 등록 다되고 등록 게시글로 바로 이동
+
+      navigate("/list");
       console.log(response.data);
     },
     onError: () => {
@@ -119,8 +122,3 @@ function QuizRegister(props) {
 }
 
 export default QuizRegister;
-
-const QuizRegisterContainer = styled.div`
-  background: linear-gradient(180deg, #141617 0%, #282c2e 83.33%), #141617;
-  padding: 80px 0px;
-`;

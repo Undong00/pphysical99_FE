@@ -1,4 +1,4 @@
-import api, {jwtInstance} from "./apiConfig";
+import api, { jwtInstance } from "./apiConfig";
 
 /**
  * 아이디 중복체크
@@ -24,14 +24,17 @@ export const signUp = async (inputValue) => {
  * 로그인
  * @param { ”userId”: “userId”,”password”: “password”,} inputValue
  * @returns { ”success”: boolean, ”message”: “로그인성공”, ”data”: null } response
+// if(response.data.success){
+//   return Promise.resolve()
+// }else{
+//   return Promise.reject(new Error('fail'))
+// }
  */
 export const login = async (inputValue) => {
   const response = await api.post(`/login`, inputValue);
-  console.log(">>>>>>>>>>>>>헤더>",response.headers)
-  // if(response.data.success){
-  //   return Promise.resolve()
-  // }else{
-  //   return Promise.reject(new Error('fail'))
-  // }
-  return response
+  console.log(">>>>>>>>>>>", response.headers);
+  // 토큰 받기
+  const token = response.headers["authorization"];
+  document.cookie = `token=${token}; path=/`;
+  return response;
 };
