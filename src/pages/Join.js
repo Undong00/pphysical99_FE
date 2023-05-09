@@ -6,6 +6,8 @@ import { useRef } from "react";
 import Swal from "sweetalert2";
 import { validId, signUp } from "../api/user";
 import axios from "axios";
+import * as CSS from "../style/commonStyle"
+import logoPPhysical99 from "../assets/logo_pphysical99.png"
 
 // 회원가입
 function Join() {
@@ -53,12 +55,13 @@ function Join() {
   };
 
   const testAxios = async () => {
-     /**axios.. test.... */
+    /**axios.. test.... */
     await axios.post('http://13.125.188.38:8080/',
-      {headers: {
-      
-      },
-      data:{userId: trimUserId},
+      {
+        headers: {
+
+        },
+        data: { userId: trimUserId },
       }
     );
   }
@@ -130,10 +133,10 @@ function Join() {
       pwcheckRef.current.focus();
       return;
     }
-    // if (!valiedId) {
-    //   alert("아이디 중복체크는 필수입니다.");
-    //   return;
-    // }
+    if (!valiedId) {
+      alert("아이디 중복체크는 필수입니다.");
+      return;
+    }
 
     try {
       signUpMutateCall();
@@ -143,49 +146,54 @@ function Join() {
   };
 
   return (
-    <div>
-      <div>
-        <h1>PPhysical99</h1>
-      </div>
-      <div>가입하고 삐지컬99를 이용해보세요</div>
-      <div>
-        <div>
-          <input
+    <CSS.HomeWrapDiv>
+      <CSS.HomeImgHeaderDiv>
+        <img alt="pphysical99Logo" width="220" height="40" src={logoPPhysical99} />
+      </CSS.HomeImgHeaderDiv>
+      <CSS.HomeMessageDiv>가입하고 삐지컬99 💪</CSS.HomeMessageDiv>
+      <CSS.HomeWrapHomeForm>
+      <CSS.JoinIptBtnWrap>
+        <CSS.HomeInputWrapDiv>
+          <CSS.HomeInput
             type="text"
             placeholder="중복 체크해주세요"
             value={userId}
             onChange={setUserId}
             ref={userIdRef}
           />
-          <span>
-            <button onClick={checkUserId}>확인</button>
-            <button onClick={testAxios}>테스트</button>
-            
-          </span>
-        </div>
-        <div>
-          <input
+        </CSS.HomeInputWrapDiv>
+        <CSS.JoinButton onClick={checkUserId}>
+          확인
+        </CSS.JoinButton>
+        </CSS.JoinIptBtnWrap>
+        <CSS.HomeInputWrapDiv>
+          <CSS.HomeInput
             type="password"
             placeholder="비밀번호를 입력해주세요"
             value={password}
             onChange={setPassword}
             ref={passwordRef}
           />
-        </div>
-        <div>
-          <input
+        </CSS.HomeInputWrapDiv>
+        <CSS.HomeInputWrapDiv>
+          <CSS.HomeInput
             type="password"
             placeholder="비밀번호를 체크해주세요"
             value={pwcheck}
             onChange={setPwcheck}
             ref={pwcheckRef}
           />
-        </div>
-      </div>
-      <div>
-        <button onClick={handleSubmit}>등록하기</button>
-      </div>
-    </div>
+        </CSS.HomeInputWrapDiv>
+      </CSS.HomeWrapHomeForm>
+      <CSS.HomeButtonWrapDiv>
+        <CSS.Button onClick={handleSubmit}>등록하기</CSS.Button>
+      </CSS.HomeButtonWrapDiv>
+      <CSS.HomeSpankWrapDiv>
+        <CSS.HomeSpan onClick={() => { navigate("/") }}>
+          로그인
+        </CSS.HomeSpan>
+      </CSS.HomeSpankWrapDiv>
+    </CSS.HomeWrapDiv>
   );
 }
 

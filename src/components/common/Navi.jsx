@@ -13,12 +13,15 @@ function Navi() {
       {
       (location.pathname === '/join' || location.pathname === '/') ? <></> :
         <CSS.ComNavi>
-          {(location.pathname === '/register' || location.pathname.includes('/quiz/'))? <></> : <button onClick={goRegister}>등록하기</button>}
-          <button>로그아웃</button>
+          <NaviBtnWrapdDiv>
+          {(location.pathname === '/register' || location.pathname.includes('/quiz/'))? <></> : <NaviPrimaryBtn onClick={goRegister}>등록하기</NaviPrimaryBtn>}
+          <NaviNagativeBtn>로그아웃</NaviNagativeBtn>
+          </NaviBtnWrapdDiv>
         </CSS.ComNavi>
       }
     </>
   );
 }
+
 
 export default Navi;

@@ -5,8 +5,11 @@ import { useInput } from "../Hooks/UseTarget";
 import { useRef } from "react";
 import { login } from "../api/user"
 import { getCookie, setCookie } from "../cookie/Cookie"
-// 로그인
+import * as CSS from "../style/commonStyle"
+import logoPPhysical99 from "../assets/logo_pphysical99.png"
+import timer1 from "../assets/timer-1.png"
 
+// 로그인
 function Home() {
   const navigate = useNavigate();
   const [userId, setUserId] = useInput("");
@@ -38,7 +41,7 @@ function Home() {
 
   // 로그인 api call
   const loginMutateCall = () => {
-    console.log(':::: 로그인 최종 값, ',{ id: trimUserId, password: trimPassword })
+    console.log(':::: 로그인 최종 값, ', { id: trimUserId, password: trimPassword })
     loginMutate.mutate({ id: trimUserId, password: trimPassword })
   }
 
@@ -64,44 +67,41 @@ function Home() {
   };
 
   return (
-    <div>
-      <div>
-        <h1>PPhysical99</h1>
-      </div>
-      <div>문제 풀러 가볼까요?</div>
-      <div>
-        <div>
-          <input
+    <CSS.HomeWrapDiv>
+      <CSS.HomeImgHeaderDiv>
+        <img alt="timer1" width="160" height="68.5" src={timer1} />
+        <img alt="pphysical99Logo" width="220" height="40" src={logoPPhysical99} />
+      </CSS.HomeImgHeaderDiv>
+      <CSS.HomeMessageDiv>문제 풀러 가볼까요?🔥</CSS.HomeMessageDiv>
+      <CSS.HomeWrapHomeForm>
+        <CSS.HomeInputWrapDiv>
+          <CSS.HomeInput
             type="text"
             placeholder="아이디를 입력하세요"
             value={userId}
             onChange={setUserId}
             ref={userIdRef}
           />
-        </div>
-        <div>
-          <input
+        </CSS.HomeInputWrapDiv>
+        <CSS.HomeInputWrapDiv>
+          <CSS.HomeInput
             type="password"
             placeholder="비밀번호를 입력하세요"
             value={password}
             onChange={setPassword}
             ref={passwordRef}
           />
-        </div>
-      </div>
-      <div>
-        <button onClick={handleSubmit}>로그인하기</button>
-      </div>
-      <div>
-        <button
-          onClick={() => {
-            navigate("/join");
-          }}
-        >
+        </CSS.HomeInputWrapDiv>
+      </CSS.HomeWrapHomeForm>
+      <CSS.HomeButtonWrapDiv>
+        <CSS.Button onClick={handleSubmit}>로그인하기</CSS.Button>
+      </CSS.HomeButtonWrapDiv>
+      <CSS.HomeSpankWrapDiv>
+        <CSS.HomeSpan onClick={() => { navigate("/join") }}>
           회원가입
-        </button>
-      </div>
-    </div>
+        </CSS.HomeSpan>
+      </CSS.HomeSpankWrapDiv>
+    </CSS.HomeWrapDiv>
   );
 }
 

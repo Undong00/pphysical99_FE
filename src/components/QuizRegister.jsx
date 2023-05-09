@@ -69,6 +69,7 @@ function QuizRegister(props) {
   return (
     <div>
       <div>
+        <div>정답</div>
         <input
           ref={correctInput}
           id="correct"
@@ -77,8 +78,10 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="정답 선택지를 입력해주세요."
         />
+      
       </div>
       <div>
+        <div>첫번째 오답</div>
         <input
           id="incorrect1"
           type="text"
@@ -88,6 +91,7 @@ function QuizRegister(props) {
         />
       </div>
       <div>
+        <div>두번째 오답</div>
         <input
           id="incorrect2"
           type="text"
@@ -97,6 +101,7 @@ function QuizRegister(props) {
         />
       </div>
       <div>
+        <div>세번째 오답</div>
         <input
           id="incorrect3"
           type="text"

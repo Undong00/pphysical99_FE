@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import * as CSS from "../../style/commonStyle";
+import logoPphysical99 from "../../assets/logo_pphysical99.png"
 
 function Header() {
   const location = useLocation();
@@ -10,11 +11,13 @@ function Header() {
       {location.pathname === "/join" || location.pathname === "/" ? (
         <></>
       ) : (
-        <div>
+        <CSS.ComHeaderWrapDiv>
           <CSS.ComHeader>
-            <h1>PPhysical99</h1>
+            <div>
+              <span><img alt="pphysical99Logo" width="220" height="40" src={logoPphysical99}/></span>
+            </div>
           </CSS.ComHeader>
-        </div>
+        </CSS.ComHeaderWrapDiv>
       )}
     </>
   );
