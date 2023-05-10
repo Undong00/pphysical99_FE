@@ -8,7 +8,9 @@ function Header() {
   const navigate = useNavigate();
   return (
     <>
-      {location.pathname === "/join" || location.pathname === "/" ? (
+      {location.pathname === "/join" ||
+      location.pathname === "/" ||
+      location.pathname === "/go" ? (
         <></>
       ) : (
         <CSS.ComHeaderWrapDiv>
