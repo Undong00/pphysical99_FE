@@ -4,8 +4,25 @@ import { addComment, deleteComment } from "../api/comment";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../cookie/Cookie";
 import * as CSS from "../style/commonStyle"
+import Swal from "sweetalert2"
 
 function CommentList(props) {
+    // 얼럿 함수 정의
+    const swalComfirm = (msg, type, callbackFun)=>{
+      Swal.fire({
+        icon: type,
+        title: msg,
+        allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
+        showCancelButton: false,
+        confirmButtonColor: '#E8344D',
+        confirmButtonText: '확인'
+      }).then((result) => {
+        if (result.isConfirmed && callbackFun) {
+          callbackFun()
+        }
+      })
+    }
+
   //리액트 쿼리 관련
   const queryClient = useQueryClient();
 
@@ -33,18 +50,11 @@ function CommentList(props) {
   };
   const addCommentMutate = useMutation(addComment, {
     onSuccess: (reponse) => {
-      //TODO 댓글 새로 조회 추가 window.location.reload();
-
-      // setCommentList((reloadCommentList) => [
-      //   // 붙이면서
-      //   ...reloadCommentList,
-      //   { id: reponse.data.data, comment: newComment }, // 댓글의 아이디
-      // ]);
       queryClient.invalidateQueries("quizDetails");
       setNewComment("");
     },
     onError: () => {
-      console.log("에러발생함");
+      console.error("[ERROR] 서버통신에러- 댓글 등록 중 에러 발생");
     },
   });
 
@@ -56,22 +66,19 @@ function CommentList(props) {
     if(newComment.trim()){
       addCommentMutate.mutate({ postId: params.id, comment: newComment });
     }else{
-      alert("공백이나 빈 값은 댓글을 달 수 없습니다.")
+      swalComfirm("공백은 댓글로 등록할 수 없습니다.", 'warning')
       setNewComment('')
     }
     
   };
 
   const deleteCommentMutate = useMutation(deleteComment, {
-    onSuccess: () => {
+    onSuccess: (response) => {
       queryClient.invalidateQueries("quizDetails");
-      // //TODO 댓글 목록 새로 조회 추가 window.location.reload();
-      // setCommentList((reloadCommentList) =>
-      //   reloadCommentList.filter((comment) => comment.id !== commentId)
-      // );
+      swalComfirm(response.data.message, 'info')
     },
-    onError: () => {
-      console.error("[ERROR] 서버 통신 에러 - 댓글 삭제 중 에러 발생");
+    onError: (error) => {
+      swalComfirm(error.data.message, 'error')
     },
   });
 

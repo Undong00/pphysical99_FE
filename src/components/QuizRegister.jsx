@@ -3,7 +3,38 @@ import { useMutation } from "react-query";
 import { quizRegister } from "../api/quiz";
 import * as CSS from "../style/commonStyle"
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 function QuizRegister(props) {
+  
+  // 얼럿 함수 정의
+  const swalAlert = (msg, type, callbackFun)=>{
+    Swal.fire({
+      icon: type,
+      title: msg,
+      allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
+		}).then((result) => {
+      if (result.isConfirmed) {
+        callbackFun()
+      }
+    })
+  }
+  const swalComfirm = (msg, type, callbackFun)=>{
+    Swal.fire({
+      icon: type,
+      title: msg,
+      allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
+      showCancelButton: false,
+      confirmButtonColor: '#E8344D',
+      confirmButtonText: '확인'
+		}).then((result) => {
+      if (result.isConfirmed && callbackFun) {
+        callbackFun()
+      }
+    })
+  }
+
+
   const navigate = useNavigate();
   const correctInput = useRef();
 
@@ -68,9 +99,10 @@ function QuizRegister(props) {
 
   const quizRegisterBtnEventHander = () => {
     if (!answerObj.correct || !answerObj.correct.trim()) {
-      alert("정답 선택지는 필수입니다.")
-      correctInput.current.focus()
+      //alert("정답 선택지는 필수입니다.")
+      swalComfirm('정답 선택지는 필수입니다.', 'warning')
       setAnswerObj({ ...answerObj, ...{ correct: "" } })
+      
     } else {
       // 내가 등록한 게시글로 이동하기
       quizRegisterMutateCall(props.questionObj)
@@ -82,10 +114,10 @@ function QuizRegister(props) {
     onSuccess: (response) => {
       // TODO 등록 다되고 등록 게시글로 바로 이동
       navigate("/list")
-      console.log(response.data)
+      console.info('[INFO] 퀴즈 등록 서버 응답 데이터',response.data)
     },
     onError: () => {
-      console.log("[ERROR] 서버 통신 에러 - 퀴즈게시글 등록 에러")
+      console.error("[ERROR] 서버 통신 에러 - 퀴즈게시글 등록 에러")
 
     },
   });
