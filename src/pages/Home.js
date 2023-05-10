@@ -20,25 +20,27 @@ function Home() {
   const userIdRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const swalAlert = (msg, type)=>{
+  const swalAlert = (msg, type) => {
     swal.fire({
       icon: type,
       title: msg,
-      allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
-		});
-  }
+      allowOutsideClick: false,
+      confirmButtonText: "확인",
+      confirmButtonColor: "#E8344D", // 화면 밖을 눌러도 화면이 안꺼짐
+    });
+  };
 
   // 서버에 요청 (로그인)
   const loginMutate = useMutation(login, {
     onSuccess: (response) => {
-      console.log("[INFO] 로그인 요청 후 응답값", response)
-      swalAlert(`${trimUserId}님 환영합니다.`,'success')
+      console.log("[INFO] 로그인 요청 후 응답값", response);
+      swalAlert(`${trimUserId}님 환영합니다.`, "success");
       setCookie("userId", trimUserId);
       console.log(response.data);
       navigate("/list");
     },
-    onError: (error) => {      
-      alert(error.data.message);
+    onError: (error) => {
+      swalAlert(error.data.message, "error");
     },
   });
 
@@ -54,17 +56,17 @@ function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!trimUserId) {
-      alert("아이디를 입력해주세요");
+      swalAlert("아이디를 입력해주세요", "error");
       userIdRef.current.focus();
       return;
     }
     if (!trimPassword) {
-      alert("비밀번호를 입력해주세요");
+      swalAlert("비밀번호를 입력해주세요", "error");
       passwordRef.current.focus();
       return;
     }
     if (trimPassword.length === 0 || trimPassword.length === 0) {
-      alert("아이디와 비밀번호를 입력해주세요");
+      swalAlert("아이디와 비밀번호를 입력해주세요", "error");
       userIdRef.current.focus();
       return;
     }

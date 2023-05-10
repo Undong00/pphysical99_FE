@@ -7,7 +7,11 @@ import api, { jwtInstance } from "./apiConfig";
  */
 export const validId = async (inputValue) => {
   const response = await api.post(`/signup/valid`, inputValue);
-  return response;
+  if (response.data.success) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(response);
+  }
 };
 
 /**
@@ -17,7 +21,11 @@ export const validId = async (inputValue) => {
  */
 export const signUp = async (inputValue) => {
   const response = await api.post(`/signup`, inputValue);
-  return response;
+  if (response.data.success) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(response);
+  }
 };
 
 /**
@@ -29,14 +37,13 @@ export const signUp = async (inputValue) => {
 export const login = async (inputValue) => {
   const response = await api.post(`/login`, inputValue);
   console.info("[INFO] 서버에 로그인 요청 후 응답값", response.headers);
-  if(response.data.success){
+  if (response.data.success) {
     // 토큰 받기
     const token = response.headers["authorization"];
     document.cookie = `token=${token}; path=/`;
-    return Promise.resolve(response)
-  }else{
-    console.error("[ERROR]"+response.data.message)
-    return Promise.reject(response)
+    return Promise.resolve(response);
+  } else {
+    console.error("[ERROR]" + response.data.message);
+    return Promise.reject(response);
   }
-
 };
