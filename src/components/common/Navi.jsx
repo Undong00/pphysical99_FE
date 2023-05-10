@@ -8,7 +8,7 @@ function Navi() {
   const handleLogout = () => {
     removeCookie("token");
     removeCookie("userId");
-    navigate("/");
+    navigate("/home");
   };
 
   const location = useLocation();
@@ -19,8 +19,8 @@ function Navi() {
   return (
     <>
       {location.pathname === "/join" ||
-        location.pathname === "/" ||
-        location.pathname === "/go" ? (
+        location.pathname === "/home" ||
+        location.pathname === "/" ? (
         <></>
       ) : (
         <CSS.ComNavi>

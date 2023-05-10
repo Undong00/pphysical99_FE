@@ -9,8 +9,8 @@ function Header() {
   return (
     <>
       {location.pathname === "/join" ||
-      location.pathname === "/" ||
-      location.pathname === "/go" ? (
+      location.pathname === "/home" ||
+      location.pathname === "/" ? (
         <></>
       ) : (
         <CSS.ComHeaderWrapDiv>

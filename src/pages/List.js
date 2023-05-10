@@ -4,8 +4,6 @@ import * as CSS from "../style/commonStyle";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { quizList } from "../api/quiz";
-import styled from "styled-components";
-import { addComment } from "../api/comment";
 
 const List = (props) => {
   const navigate = useNavigate();
@@ -35,9 +33,9 @@ const List = (props) => {
 
   return (
     <CSS.Main>
-      <ListLayout>
+      <CSS.ListLayout>
         <div>
-          <Listframe>
+          <CSS.Listframe>
             {data ? (
               quizzes.map((quiz) => (
                 <div
@@ -47,10 +45,10 @@ const List = (props) => {
                   }}
                 >
                   {console.log(quiz)}
-                  <Listboxframe>
-                    <Listbox>
+                  <CSS.Listboxframe>
+                    <CSS.Listbox>
                       <div>
-                        <ListTitle>
+                        <CSS.ListTitle>
                           <div>{quiz.title}</div>
                           <div>
                             {quiz.solved ? (
@@ -85,87 +83,21 @@ const List = (props) => {
                               </div>
                             )}
                           </div>
-                        </ListTitle>
+                        </CSS.ListTitle>
                         <div>{quiz.content}</div>
                       </div>
-                    </Listbox>
-                  </Listboxframe>
+                    </CSS.Listbox>
+                  </CSS.Listboxframe>
                 </div>
               ))
             ) : (
               <div>로딩중..</div>
             )}
-          </Listframe>
+          </CSS.Listframe>
         </div>
-      </ListLayout>
+      </CSS.ListLayout>
     </CSS.Main>
   );
 };
+
 export default List;
-
-const ListLayout = styled.div`
-  max-width: 1192px px;
-  padding: 28px 20px 0;
-
-  height: 100%;
-`;
-
-const Listframe = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  max-width: 89%;
-  width: 100%;
-  height: 700px;
-`;
-
-const Listboxframe = styled.div`
-  padding: 0px;
-`;
-
-const Listbox = styled.div`
-  :hover {
-    cursor: pointer;
-    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.2s ease-in-out;
-    border-radius: 24px;
-    box-sizing: border-box;
-    background: #fff;
-    color: #f70101;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 24px;
-    margin-bottom: 16px;
-    padding: 16px;
-    width: 100%;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s ease-in-out;
-    border: 1px solid #f70101;
-    border-radius: 24px;
-    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.15);
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-  align-items: center;
-  background: #fff;
-  border-radius: 24px;
-  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.15);
-  box-sizing: border-box;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 16px 0;
-  padding: 22px;
-  width: 100%;
-`;
-
-const ListTitle = styled.div`
-  font-size: 25px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 16px;
-`;
