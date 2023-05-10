@@ -4,8 +4,9 @@ import { useMutation } from "react-query";
 import { useInput } from "../Hooks/UseTarget";
 import { useRef } from "react";
 import { login } from "../api/user";
-import { getCookie, setCookie } from "../cookie/Cookie";
+import { setCookie } from "../cookie/Cookie";
 import * as CSS from "../style/commonStyle";
+import swal from "sweetalert2";
 import logoPPhysical99 from "../assets/logo_pphysical99.png";
 import timer1 from "../assets/timer-1.png";
 
@@ -19,33 +20,30 @@ function Home() {
   const userIdRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const swalAlert = (msg, type)=>{
+    swal.fire({
+      icon: type,
+      title: msg,
+      allowOutsideClick: false, // 화면 밖을 눌러도 화면이 안꺼짐
+		});
+  }
+
   // 서버에 요청 (로그인)
   const loginMutate = useMutation(login, {
     onSuccess: (response) => {
-      // 응답결과 헤더에 토큰 받음
-      // if (response.data.Authorization) {
-      //   setCookie('Authorization', response.data.Authorization, {
-      //     path: "/",
-      //   })
-      // }
-      // const jwt = getCookie("Authorization");
-      // if (jwt) {
-      // 헤더에 Authorization
-      alert(`${trimUserId}님 환영합니다.`);
+      console.log("[INFO] 로그인 요청 후 응답값", response)
+      swalAlert(`${trimUserId}님 환영합니다.`,'success')
       setCookie("userId", trimUserId);
       navigate("/list");
-      // }
     },
-    onError: (error) => {
-      alert(
-        `일치하는 계정정보를 찾을 수 없습니다.\n입력하신 ID, 혹은 비밀번호를 확인해주세요.`
-      );
+    onError: (error) => {      
+      alert(error.data.message);
     },
   });
 
   // 로그인 api call
   const loginMutateCall = () => {
-    console.log(":::: 로그인 최종 값, ", {
+    console.log("[INFO] 로그인 요청 값, ", {
       userId: trimUserId,
       password: trimPassword,
     });

@@ -24,17 +24,19 @@ export const signUp = async (inputValue) => {
  * 로그인
  * @param { ”userId”: “userId”,”password”: “password”,} inputValue
  * @returns { ”success”: boolean, ”message”: “로그인성공”, ”data”: null } response
-// if(response.data.success){
-//   return Promise.resolve()
-// }else{
-//   return Promise.reject(new Error('fail'))
-// }
  */
+
 export const login = async (inputValue) => {
   const response = await api.post(`/login`, inputValue);
-  console.log(">>>>>>>>>>>", response.headers);
-  // 토큰 받기
-  const token = response.headers["authorization"];
-  document.cookie = `token=${token}; path=/`;
-  return response;
+  console.info("[INFO] 서버에 로그인 요청 후 응답값", response.headers);
+  if(response.data.success){
+    // 토큰 받기
+    const token = response.headers["authorization"];
+    document.cookie = `token=${token}; path=/`;
+    return Promise.resolve(response)
+  }else{
+    console.error("[ERROR]"+response.data.message)
+    return Promise.reject(response)
+  }
+
 };
