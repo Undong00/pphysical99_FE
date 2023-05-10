@@ -6,7 +6,20 @@ export const Main = styled.main`
   position: relative;
   top: 130px;
   /* overflow: hidden; */
-`;
+`
+
+export const InnerMain = styled.div`
+  margin-right: 15vh;
+  margin-left: 15vh;
+`
+
+export const ComGapDiv = styled.div`
+    display: block;
+    height: 15px;
+    height: ${(props) => {
+    return props.gap+'px';
+  }};
+`
 
 export const ComHeader = styled.div`
   position: fixed;
@@ -273,6 +286,48 @@ export const AnswerDiv = styled.div`
   }};
 `;
 
+export const AnswerCardWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap : 15px;
+`
+export const AnswerCard = styled.div`
+  cursor: pointer;
+  background: #fff;
+  flex-direction: row;
+  padding: 16px;
+  
+  font-family: Noto Sans KR,Source Sans Pro,sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  width: 350px;
+  
+  align-items: center;
+  border-radius: 24px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-sizing: border-box;
+  
+  display: flex;
+  
+  flex : 1;
+  height: calc(15vh);
+  text-align: center;
+  justify-content: center;
+  color: #000;
+
+  &:hover{
+    color: rgb(247, 1, 1);
+    border: 1px solid rgb(247, 1, 1);
+  }
+`
+export const AnswerButtonDiv = styled.div`
+  justify-content: center;
+  display: flex;
+  flex-grow: ${(props) => {
+    return props.per;
+  }};
+`;
+
 /** Quzi */
 export const QuizHeaderWrapDiv = styled.div`
   display: flex;
@@ -368,3 +423,253 @@ export const ContentDiv = styled.div`
   color: rgb(0, 0, 0);
   white-space: nowrap;
 `;
+
+/** Comment */
+export const ComentAddBtn = styled.button`
+  width: 100%;
+  height: 48px;
+  background-color: rgb(232, 52, 78);
+  border-radius: 8px;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  line-height: 48px;
+  cursor: pointer;
+  border: 0px solid black;
+  margin-bottom: 50px;
+  transition: background-color 0.1s ease 0s;
+  &:hover {
+    background-color: rgb(196, 101, 101);
+  }
+  &:active {
+    background-color: rgb(196, 101, 101);
+  }
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    background-color: rgb(232, 52, 78);
+    cursor: not-allowed;
+  }
+  &:active {
+    background-color: rgb(232, 52, 78);
+  }
+`;
+
+export const ComentInput = styled.input`
+  height: 44px px;
+  padding: 10px 14px 11px;
+  letter-spacing: inherit;
+  border: 1px solid rgb(234, 235, 239);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: "Noto Sans KR", "Noto Sans CJK KR", "맑은 고딕", "Malgun Gothic",
+    sans-serif;
+  font-size: 15px;
+  line-height: 21px;
+  resize: none;
+  margin: 0px;
+  transition: border-color 0.1s ease 0s, background-color 0.1s ease 0s;
+`;
+export const ComentLayout = styled.div`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  padding: 24px 0px;
+  gap: 12px;
+  width: 100%;
+  border-bottom: 1px solid #d7e0e6;
+  position: relative;
+`;
+
+export const ComentListheader = styled.div`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+export const CommentImg = styled.img`
+  width: 40px;
+  border-radius: 50%;
+  margin: 0px 10px 0px 0px;
+`;
+
+export const CommentDeleteBtn = styled.button`
+  border: none;
+  background: none;
+  font-size: 30px;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  padding: 0px;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  &:hover {
+    background-color: rgb(234, 235, 239);
+  }
+  &:active {
+    background-color: rgb(234, 235, 239);
+  }
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    background-color: rgb(234, 235, 239);
+  }
+  &:active {
+    background-color: rgb(234, 235, 239);
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CommentHeaderWrapDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+/** QUIZ REGISTER */
+export const RegiInputWrapDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  height: 56px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(219, 221, 224);
+  border-radius: 4px;
+  margin-bottom: 4px;
+`
+
+export const RegiInput = styled.input`  
+  background-color: rgb(255, 255, 255);
+  width: 90%;
+  border-bottom : none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+`
+
+
+/** LIST PAGE */
+export const ListLayout = styled.div`
+  max-width: 1192px px;
+  padding: 28px 20px 0;
+
+  height: 100%;
+`;
+
+export const Listframe = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 89%;
+  width: 100%;
+  height: 700px;
+`;
+
+export const Listboxframe = styled.div`
+  padding: 0px;
+`;
+
+export const Listbox = styled.div`
+  :hover {
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+    border-radius: 24px;
+    box-sizing: border-box;
+    background: #fff;
+    color: #f70101;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    margin-bottom: 16px;
+    padding: 16px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #f70101;
+    border-radius: 24px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  align-items: center;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  padding: 22px;
+  width: 100%;
+`;
+
+export const ListTitle = styled.div`
+  font-size: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+`;
+
+/* REGISTER PAGE */
+export const PageHaderWrapDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+`
+
+export const PageHaderContentWrapDiv = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  background-color: rgb(175, 211, 189);
+  padding: 20px;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 16px;
+`
