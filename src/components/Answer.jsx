@@ -111,14 +111,14 @@ function Answer(props) {
               (answerArr && answerArr.length <= 1) ?
               (
                   <CSS.AnswerInputWrapDiv>
-                    <CSS.AnswerDiv per="14">
+                    <CSS.AnswerDiv per="50">
                       <CSS.TitleInputWrapDiv>
                         <CSS.TitleInput ref={answerInput} onChange={onChangeEventHandler} type="text" value={answer}></CSS.TitleInput>
                       </CSS.TitleInputWrapDiv>
                     </CSS.AnswerDiv>
-                    <CSS.AnswerDiv per="1">
-                      <button onClick={() => submitAnswer(answer)}>제출</button>
-                    </CSS.AnswerDiv>
+                    <AnswerButtonDiv per="1">
+                      <CSS.NaviPrimaryBtn onClick={() => submitAnswer(answer)}>제출</CSS.NaviPrimaryBtn>
+                    </AnswerButtonDiv>
                 </CSS.AnswerInputWrapDiv>
                 )
                :(
@@ -140,25 +140,47 @@ function Answer(props) {
     )
   }
 
+// TODO CHECK hover, shadow 확인
 export const AnswerCardWrap = styled.div`
   display: flex;
   flex-direction: row;
-  gap : 10px;
+  gap : 15px;
 `
 export const AnswerCard = styled.div`
-  flex-direction: row;
-  padding: 21px 0;
-  width: 350px;
-  align-items: center;
+  cursor: pointer;
   background: #fff;
-  border-radius: 24px;
-  box-shadow: 0 4px 25px 0 rgba(0,0,0,.15);
-  box-sizing: border-box;
-  color: #000;
-  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  
   font-family: Noto Sans KR,Source Sans Pro,sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  width: 350px;
+  
+  align-items: center;
+  border-radius: 24px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-sizing: border-box;
+  
+  display: flex;
+  
   flex : 1;
-  height: calc(100vh - 90vh)
+  height: calc(15vh);
+  text-align: center;
+  justify-content: center;
+  color: #000;
+
+  &:hover{
+    color: rgb(247, 1, 1);
+    border: 1px solid rgb(247, 1, 1);
+  }
 `
+export const AnswerButtonDiv = styled.div`
+  justify-content: center;
+  display: flex;
+  flex-grow: ${(props) => {
+    return props.per;
+  }};
+`;
 
 export default Answer;
