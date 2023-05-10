@@ -18,7 +18,9 @@ function Navi() {
   };
   return (
     <>
-      {location.pathname === "/join" || location.pathname === "/" ? (
+      {location.pathname === "/join" ||
+      location.pathname === "/" ||
+      location.pathname === "/go" ? (
         <></>
       ) : (
         <CSS.ComNavi>
