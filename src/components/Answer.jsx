@@ -103,7 +103,7 @@ function Answer(props) {
               <CSS.ContentDiv>정답은 수정할 수 없습니다!😮</CSS.ContentDiv>
             </CSS.AlertWrapDiv>
           ):(
-            {isSovled}?(
+            isSovled?(
               <CSS.AlertWrapDiv>
                 <CSS.ContentDiv>💡이미 푸신 문제에요!!<br/>{userId} 님과 한결 가까워 지셨나요?</CSS.ContentDiv>
               </CSS.AlertWrapDiv>
