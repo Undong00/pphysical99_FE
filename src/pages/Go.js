@@ -10,10 +10,16 @@ function Go() {
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.clientWidth);
+    if (containerWidth > 0) {
+      navigate("/go");
     }
-  }, [containerRef]);
+  }, [containerWidth, navigate]);
+
+  useEffect(() => {
+    if (containerWidth > 0) {
+      navigate("/go");
+    }
+  }, [containerWidth, navigate]);
 
   return (
     <YoutubeBackground
@@ -25,17 +31,15 @@ function Go() {
       mute={false}
     >
       <div
-        onClick={() => navigate("/")}
         style={{
           border: "none",
           position: "fixed",
           bottom: "0",
-          left: "670px",
-          width: `${containerWidth}px`,
+          left: "650px",
         }}
         ref={containerRef}
       >
-        <img src={btn_start} width="500px" />
+        <img src={btn_start} width="500px" onClick={() => navigate("/")} />
       </div>
     </YoutubeBackground>
   );
