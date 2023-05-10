@@ -30,7 +30,6 @@ function Join() {
       setValiedId(true);
       
       alert(`${userId}은(는) 사용가능한 아이디 입니다.`);
-      //navigate("/");
     },
     onError: (error) => {
       setValiedId(false);
@@ -58,7 +57,7 @@ function Join() {
   const signUpMutate = useMutation(signUp, {
     onSuccess: (response) => {
       alert(`${userId}님 가입이 완료되었습니다.\n로그인 후 이용해 주세요.`);
-      navigate("/");
+      navigate("/home");
     },
     onError: (error) => {
       alert(error + "\n회원가입이 실패했습니다.");
@@ -177,7 +176,7 @@ function Join() {
         <CSS.Button onClick={handleSubmit}>회원가입</CSS.Button>
       </CSS.HomeButtonWrapDiv>
       <CSS.HomeSpankWrapDiv>
-        <CSS.HomeSpan onClick={() => { navigate("/") }}>
+        <CSS.HomeSpan onClick={() => { navigate("/home") }}>
           로그인
         </CSS.HomeSpan>
       </CSS.HomeSpankWrapDiv>

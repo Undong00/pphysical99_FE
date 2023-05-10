@@ -5,7 +5,6 @@ import { quizSolving } from "../api/quiz";
 import { useRef } from "react";
 import { getCookie } from "../cookie/Cookie";
 import * as CSS from "../style/commonStyle"
-import styled from "styled-components";
 
 function Answer(props) {
   //리액트 쿼리 관련
@@ -116,21 +115,21 @@ function Answer(props) {
                         <CSS.TitleInput ref={answerInput} onChange={onChangeEventHandler} type="text" value={answer}></CSS.TitleInput>
                       </CSS.TitleInputWrapDiv>
                     </CSS.AnswerDiv>
-                    <AnswerButtonDiv per="1">
+                    <CSS.AnswerButtonDiv per="1">
                       <CSS.NaviPrimaryBtn onClick={() => submitAnswer(answer)}>제출</CSS.NaviPrimaryBtn>
-                    </AnswerButtonDiv>
+                    </CSS.AnswerButtonDiv>
                 </CSS.AnswerInputWrapDiv>
                 )
                :(
-                <AnswerCardWrap>
+                <CSS.AnswerCardWrap>
                   {answerArr && answerArr.map((answer) => {
                     return (
-                      <AnswerCard onClick={onClickEventHandler}>
+                      <CSS.AnswerCard onClick={onClickEventHandler}>
                         {answer}
-                      </AnswerCard>
+                      </CSS.AnswerCard>
                       );
                     })}
-                </AnswerCardWrap>
+                </CSS.AnswerCardWrap>
                )
             )
           )
@@ -139,48 +138,5 @@ function Answer(props) {
     </>
     )
   }
-
-// TODO CHECK hover, shadow 확인
-export const AnswerCardWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap : 15px;
-`
-export const AnswerCard = styled.div`
-  cursor: pointer;
-  background: #fff;
-  flex-direction: row;
-  padding: 16px;
-  
-  font-family: Noto Sans KR,Source Sans Pro,sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  width: 350px;
-  
-  align-items: center;
-  border-radius: 24px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  box-sizing: border-box;
-  
-  display: flex;
-  
-  flex : 1;
-  height: calc(15vh);
-  text-align: center;
-  justify-content: center;
-  color: #000;
-
-  &:hover{
-    color: rgb(247, 1, 1);
-    border: 1px solid rgb(247, 1, 1);
-  }
-`
-export const AnswerButtonDiv = styled.div`
-  justify-content: center;
-  display: flex;
-  flex-grow: ${(props) => {
-    return props.per;
-  }};
-`;
 
 export default Answer;

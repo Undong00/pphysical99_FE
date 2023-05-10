@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useMutation } from "react-query";
 import { quizRegister } from "../api/quiz";
-import styled from "styled-components";
 import * as CSS from "../style/commonStyle"
 import { useNavigate } from "react-router-dom";
 function QuizRegister(props) {
@@ -86,7 +85,8 @@ function QuizRegister(props) {
       console.log(response.data)
     },
     onError: () => {
-      console.log("등록에러")
+      console.log("[ERROR] 서버 통신 에러 - 퀴즈게시글 등록 에러")
+
     },
   });
 
@@ -98,9 +98,9 @@ function QuizRegister(props) {
 
   return (
     <div>
-      <RegiInputWrapDiv>
+      <CSS.RegiInputWrapDiv>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill={circleClr.correct} stroke={circleClr.correct} stroke-width="2"></circle><path d="M8 12.5271L10.5 14.7998L16 9.7998" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-        <RegiInput
+        <CSS.RegiInput
           autoComplete='off'
           ref={correctInput}
           id="correct"
@@ -109,10 +109,10 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="정답 선택지를 입력해주세요."
         />
-      </RegiInputWrapDiv>
-      <RegiInputWrapDiv>
+      </CSS.RegiInputWrapDiv>
+      <CSS.RegiInputWrapDiv>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill={circleClr.incorrect1} stroke={circleClr.incorrect1} stroke-width="2"></circle><path d="M8 12.5271L10.5 14.7998L16 9.7998" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-        <RegiInput
+        <CSS.RegiInput
           autoComplete='off'
           id="incorrect1"
           type="text"
@@ -120,10 +120,10 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다."
         />
-      </RegiInputWrapDiv>
-      <RegiInputWrapDiv>
+      </CSS.RegiInputWrapDiv>
+      <CSS.RegiInputWrapDiv>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill={circleClr.incorrect2} stroke={circleClr.incorrect2} stroke-width="2"></circle><path d="M8 12.5271L10.5 14.7998L16 9.7998" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-        <RegiInput
+        <CSS.RegiInput
           autoComplete='off'
           id="incorrect2"
           type="text"
@@ -131,10 +131,10 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다."
         />
-      </RegiInputWrapDiv>
-      <RegiInputWrapDiv>
+      </CSS.RegiInputWrapDiv>
+      <CSS.RegiInputWrapDiv>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill={circleClr.incorrect3} stroke={circleClr.incorrect3} stroke-width="2"></circle><path d="M8 12.5271L10.5 14.7998L16 9.7998" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-        <RegiInput
+        <CSS.RegiInput
           autoComplete='off'
           id="incorrect3"
           type="text"
@@ -142,35 +142,12 @@ function QuizRegister(props) {
           onChange={answersOnChangeEventHandler}
           placeholder="다른 선택지를 입력해주세요. 입력 시 객관식문제를 낼 수 있습니다."
         />
-      </RegiInputWrapDiv>
-      {/* TODO 긍정버튼 */}
+      </CSS.RegiInputWrapDiv>
       <div>
-        <button onClick={quizRegisterBtnEventHander}>등록</button>
+        <CSS.ComentAddBtn onClick={quizRegisterBtnEventHander}>등록</CSS.ComentAddBtn>
       </div>
     </div>
   );
 }
-
-export const RegiInputWrapDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  height: 56px;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(219, 221, 224);
-  border-radius: 4px;
-  margin-bottom: 4px;
-`
-
-export const RegiInput = styled.input`  
-  background-color: rgb(255, 255, 255);
-  width: 90%;
-  border-bottom : none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-`
 
 export default QuizRegister;
