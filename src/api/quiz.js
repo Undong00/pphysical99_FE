@@ -9,7 +9,7 @@ import api, { jwtInstance } from "./apiConfig";
  */
 export const quizList = async () => {
   const response = await jwtInstance.get(`/quiz`);
-  console.log(response);
+  console.info("[INFO] 퀴즈 목록 조회 결과",response);
   return response;
 };
 
@@ -32,7 +32,7 @@ export const quizModify = async (value) => {
   const response = await jwtInstance.put(
     `/quiz/` + value.quizId,
     value.modifyValue,
-    console.log(value.quizId)
+    console.info("[INFO] 퀴즈 수정요청 최종 값",value.quizId)
   );
   return response;
 };
