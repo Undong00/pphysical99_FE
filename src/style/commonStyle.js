@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
 export const Main = styled.main`
-  padding-top: 130px;
-  min-height: calc(100vh-130px); // 헤더와 네비 높이만큼 제외
+  overflow: scroll;
+  width: 100%;
+  position: relative;
+  top: 130px;
+  /* overflow: hidden; */
 `;
 
 export const ComHeader = styled.div`

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { addComment, deleteComment } from "../api/comment";
 import { useParams } from "react-router-dom";
+import { getCookie } from "../cookie/Cookie";
 
 function CommentList(props) {
   //리액트 쿼리 관련
   const queryClient = useQueryClient();
+
+  const userId = getCookie("userId");
 
   // 내부 스테이트
   const params = useParams();
@@ -86,11 +89,12 @@ function CommentList(props) {
         {commentList.map((comment) => (
           <div key={comment.id}>
             {comment.comment}
-            {comment.userId === props.data.data.data.userId ? (
+            {comment.userId === userId ? (
               <button onClick={() => deleteCommentMutateCall(comment.id)}>
                 삭제하기
               </button>
             ) : null}
+            {console.log(userId)}
           </div>
         ))}
       </div>
