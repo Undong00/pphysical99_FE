@@ -174,7 +174,7 @@ function Join() {
         </CSS.HomeInputWrapDiv>
       </CSS.HomeWrapHomeForm>
       <CSS.HomeButtonWrapDiv>
-        <CSS.Button onClick={handleSubmit}>등록하기</CSS.Button>
+        <CSS.Button onClick={handleSubmit}>회원가입</CSS.Button>
       </CSS.HomeButtonWrapDiv>
       <CSS.HomeSpankWrapDiv>
         <CSS.HomeSpan onClick={() => { navigate("/") }}>
