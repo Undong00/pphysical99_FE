@@ -18,7 +18,6 @@ function Body(props) {
   useEffect(() => {
     if (props.data) {
       setBody(props.data.data.data.content);
-      console.log(props.data.data.data.content);
     }
   }, [props.data]);
 
