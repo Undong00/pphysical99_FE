@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Body from "../components/Body";
 import Title from "../components/Title";
+import Gap from "../components/common/Gap"
 import Comment from "../components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { isEdit } from "../redux/modules/componentMode";
@@ -11,6 +12,7 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../cookie/Cookie";
+import styled from "styled-components";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -116,6 +118,7 @@ function Quiz() {
 
   return (
     <CSS.Main>
+      <InnerMain>
       <CSS.QuizHeaderWrapDiv>
         <CSS.QuizTitleDiv per="13">
           <Title
@@ -140,10 +143,19 @@ function Quiz() {
       </CSS.QuizHeaderWrapDiv>
 
       <Body isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />
+      {/* Gap CSS 공통으로 빼면 바꾸기 */}
+      <Gap/>
       <Answer isEdit={isEditMode} data={data} />
+      <Gap/>
       <Comment data={data} />
+      </InnerMain>
     </CSS.Main>
   );
 }
 
+export const InnerMain = styled.div`
+  margin-right: 15vh;
+  margin-left: 15vh;
+
+`
 export default Quiz;
