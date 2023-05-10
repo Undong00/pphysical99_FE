@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { quizDetails, quizModify, quizDelete } from "../api/quiz";
 import { useNavigate } from "react-router-dom";
-
+import { getCookie } from "../cookie/Cookie";
 
 // 수정 시 버튼 바꾸기,
 function Quiz() {
@@ -19,8 +19,12 @@ function Quiz() {
 
   // 액션객체를 시행하기 위핸 디스패쳐를 선언한다.
   const dispatch = useDispatch();
+
   //전역 스토어에서 현재 게시글이 수정상태인지 여부를 가져온다.
   const isEditMode = useSelector((state) => state.componentMode.isEdit);
+
+  //내부 상태. 현재 접속된 유저아이디와 게시글을 등록한 사용자가 동일인물인지 판단.
+  const [isMine, setIsMine] = useState(false)
 
   // 상세조회
   const queryClient = useQueryClient();
@@ -28,7 +32,16 @@ function Quiz() {
     quizDetails(id)
   );
 
-  
+  // useEffect
+  useEffect(() => {
+    if (data) {
+      console.log(`[INFO] 게시글 상세조회가 성공했습니다.`, data.data.data.userId)
+      if (getCookie("userId") === data.data.data.userId) {
+        setIsMine(true)
+      }
+    }
+
+  }, [data])
   // 수정
   const quizModifyMutate = useMutation(quizModify, {
     onSuccess: () => {
@@ -72,16 +85,18 @@ function Quiz() {
 
   // 서버에 담을 값들
   const [questionObj, setQuestionObj] = useState({
-    title:'',
+    title: '',
     content: '',
   });
 
-  useEffect(()=>{
-    if(data){
-      setQuestionObj({title: data.data.data.title,
-        content: data.data.data.content})
+  useEffect(() => {
+    if (data) {
+      setQuestionObj({
+        title: data.data.data.title,
+        content: data.data.data.content
+      })
     }
-  },[data])
+  }, [data])
 
   const getQuestinObj = (x) => {
     const resolve = { x };
@@ -109,14 +124,19 @@ function Quiz() {
             getQuestinObj={getQuestinObj}
           />
         </CSS.QuizTitleDiv>
-        <CSS.QuizTitleDiv per="1">{isEditMode?<CSS.QuizPraimarhyButton onClick={handleButtonClick} >수정완료</CSS.QuizPraimarhyButton>:<CSS.QuizNagativeButton onClick={handleButtonClick}>수정하기</CSS.QuizNagativeButton>}
-          
-        </CSS.QuizTitleDiv>
-        <CSS.QuizTitleDiv per="1">
-          <CSS.QuizNagativeButton onClick={deleteHandler}>
-            삭제하기
-          </CSS.QuizNagativeButton>
-        </CSS.QuizTitleDiv>
+        {isMine?(
+        <>
+          <CSS.QuizTitleDiv per="1">{isEditMode ? <CSS.QuizPraimarhyButton onClick={handleButtonClick} >수정완료</CSS.QuizPraimarhyButton> : <CSS.QuizNagativeButton onClick={handleButtonClick}>수정하기</CSS.QuizNagativeButton>}
+          </CSS.QuizTitleDiv>
+          <CSS.QuizTitleDiv per="1">
+            <CSS.QuizNagativeButton onClick={deleteHandler}>
+              삭제하기
+            </CSS.QuizNagativeButton>
+          </CSS.QuizTitleDiv>
+        </>
+        ):(
+          <></>
+        )}
       </CSS.QuizHeaderWrapDiv>
 
       <Body isEdit={isEditMode} data={data} getQuestinObj={getQuestinObj} />

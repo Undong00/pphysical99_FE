@@ -19,25 +19,32 @@ function Navi() {
   return (
     <>
       {location.pathname === "/join" ||
-      location.pathname === "/" ||
-      location.pathname === "/go" ? (
+        location.pathname === "/" ||
+        location.pathname === "/go" ? (
         <></>
       ) : (
         <CSS.ComNavi>
-          <CSS.NaviBtnWrapdDiv>
+          
             {location.pathname === "/register" ||
-            location.pathname.includes("/quiz/") ? (
-              <></>
+              location.pathname.includes("/quiz/") ? (
+              // 목록을 제외하고 등록, 퀴즈상세보기 페이지에서 보인다
+              <CSS.NaviBtnWrapdDiv>
+              <CSS.NaviNagativeBtn onClick={() => navigate("/list")}>뒤로가기</CSS.NaviNagativeBtn>
+              </CSS.NaviBtnWrapdDiv>
             ) : (
-              <CSS.NaviPrimaryBtn onClick={goRegister}>
-                등록하기
-              </CSS.NaviPrimaryBtn>
+              // 목록에서만 보인다
+              <CSS.NaviBtnWrapdDiv>
+                <CSS.NaviPrimaryBtn onClick={goRegister}>
+                  등록하기
+                </CSS.NaviPrimaryBtn>
+              </CSS.NaviBtnWrapdDiv>
             )}
-            <button onClick={() => navigate("/list")}>뒤로가기</button>
-            <CSS.NaviNagativeBtn onClick={handleLogout}>
-              로그아웃
-            </CSS.NaviNagativeBtn>
-          </CSS.NaviBtnWrapdDiv>
+            {/* 로그인 이후 항상 보임 */}
+            <CSS.NaviBtnWrapdDiv>
+              <CSS.NaviNagativeBtn onClick={handleLogout}>
+                로그아웃
+              </CSS.NaviNagativeBtn>
+            </CSS.NaviBtnWrapdDiv>
         </CSS.ComNavi>
       )}
     </>
