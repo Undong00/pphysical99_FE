@@ -33,6 +33,7 @@ function Home() {
       // 헤더에 Authorization
       alert(`${trimUserId}님 환영합니다.`);
       setCookie("userId", trimUserId);
+      console.log(response.data);
       navigate("/list");
       // }
     },
