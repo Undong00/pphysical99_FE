@@ -1,5 +1,7 @@
 
 # mini-project
+pdf : [e720d7f4-9764-4638-8e9c-23a66ede57b4_4조_미니_프로젝트__삐질걸_99_S.a.pdf](https://github.com/Undong00/pphysical99_FE/files/11466624/e720d7f4-9764-4638-8e9c-23a66ede57b4_4._._.__._99_S.a.pdf)
+
 삐질걸 : 99
 - 배포 도메인 주소
     - 도메인 주소 : [링크](http://undong2.s3-website.ap-northeast-2.amazonaws.com/home)
