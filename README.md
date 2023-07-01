@@ -1,6 +1,9 @@
+![__큐알](https://github.com/Undong00/pphysical99_FE/assets/58963027/e47931c6-c795-4037-83f7-eb375a47a04a)
+
 # 🔥삐질껄99 mini-project
 항해99 14기 인원들이 본인의 TMI를 퀴즈로 만들어서 등록하고, 다른 사람의 퀴즈를 맞춰보는 웹 서비스
 - 프로젝트 기간 : 23.05.04. - 23.05.12. 
+- 배포 도메인 주소 : http://undong2.s3-website.ap-northeast-2.amazonaws.com/home
 
 # 기술 스택
 - FE : HTML, CSS, JavaScript, React, styled component
