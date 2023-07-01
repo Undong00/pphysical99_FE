@@ -23,3 +23,7 @@
 - 시연 영상 링크
   https://youtu.be/Zde4DwV_iCs
 
+# 시연 이미지
+<div align='center'>
+
+</div>
